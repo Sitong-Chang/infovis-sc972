@@ -1,62 +1,124 @@
 {
-  "data_status": "Illustrative prototype data; not a Pick-a-Pic sample",
+  "version": "0.2",
+  "dataset": {
+    "name": "Midjourney Threads",
+    "paper": "Human Learning by Model Feedback: The Dynamics of Iterative Prompting with Midjourney",
+    "repository": "https://github.com/shachardon/Mid-Journey-to-alignment",
+    "paper_url": "https://aclanthology.org/2023.emnlp-main.253/",
+    "source_file": "data/threads_0.csv",
+    "thread_id": 2231,
+    "sample_note": "Three consecutive records selected because the prompt revisions are compact and inspectable.",
+    "original_image_status": "Unavailable: all three recorded Discord CDN URLs returned HTTP 404 when checked on 2026-09-13."
+  },
   "nodes": [
     {
-      "id": "p01",
-      "label": "Variant A",
-      "prompt": "a quiet city street at night",
-      "image": "assets/images/variant-a.svg",
-      "alt": "Illustrative dark city street with simple building silhouettes and a pale moon",
-      "data_status": "illustrative"
+      "id": "1071138984736084058",
+      "label": "Step 1",
+      "thread_depth": 3,
+      "timestamp": "2023-02-03T18:43:54.761000+00:00",
+      "prompt": "glass envelope, white note, old feather pen, 4k, front view, surreal fantasy background, glossy, ultra realistic, detailed",
+      "args": "--chaos 50",
+      "image": "assets/images/thread-2231-step-1-regenerated.webp",
+      "alt": "Regenerated demonstration showing a glass envelope, white note, antique feather pen, and surreal fantasy landscape in a front view",
+      "data_status": "recorded prompt + regenerated image",
+      "source_image": {
+        "recorded_url": "https://cdn.discordapp.com/attachments/989739763957391370/1071138984358588507/Amrosen_glass_envelope_white_note_old_feather_pen_4k_front_view_dcde819f-a944-4950-a7b5-3f5494a170ff.png",
+        "status": "unavailable",
+        "http_status": 404,
+        "checked_on": "2026-09-13"
+      },
+      "regenerated_image": {
+        "status": "AI-generated demonstration",
+        "generated_on": "2026-09-13",
+        "relation_to_source": "Generated from the recorded prompt; not the historical Midjourney output."
+      },
+      "historical_action": {
+        "upscaled": false,
+        "statement": "No upscale action is recorded for an output from this historical step."
+      }
     },
     {
-      "id": "p02",
-      "label": "Variant B",
-      "prompt": "a quiet city street at night, cinematic blue lighting",
-      "image": "assets/images/variant-b.svg",
-      "alt": "Illustrative city street shifted toward vivid blue lighting and higher contrast",
-      "data_status": "illustrative"
+      "id": "1071139569849880656",
+      "label": "Step 2",
+      "thread_depth": 3,
+      "timestamp": "2023-02-03T18:46:14.263000+00:00",
+      "prompt": "glass envelope, HD, white note, old feather pen, 4k, front view, fantasy background, glossy, ultra realistic, detailed",
+      "args": "--quality 5",
+      "image": "assets/images/thread-2231-step-2-regenerated.webp",
+      "alt": "Regenerated demonstration showing a glass envelope, white note, antique feather pen, and luminous fantasy landscape in a front view",
+      "data_status": "recorded prompt + regenerated image",
+      "source_image": {
+        "recorded_url": "https://cdn.discordapp.com/attachments/989739763957391370/1071139569564663888/Amrosen_glass_envelope_HD_white_note_old_feather_pen_4k_front_v_00a944f5-d703-4b30-a3ca-8cfcfd20e144.png",
+        "status": "unavailable",
+        "http_status": 404,
+        "checked_on": "2026-09-13"
+      },
+      "regenerated_image": {
+        "status": "AI-generated demonstration",
+        "generated_on": "2026-09-13",
+        "relation_to_source": "Generated from the recorded prompt; not the historical Midjourney output."
+      },
+      "historical_action": {
+        "upscaled": true,
+        "statement": "An output from this historical step was upscaled by the original user."
+      }
     },
     {
-      "id": "p03",
-      "label": "Variant C",
-      "prompt": "a quiet city street at night, cinematic blue lighting, watercolor texture",
-      "image": "assets/images/variant-c.svg",
-      "alt": "Illustrative blue city street with translucent watercolor-like texture",
-      "data_status": "illustrative"
+      "id": "1071140082511253515",
+      "label": "Step 3",
+      "thread_depth": 4,
+      "timestamp": "2023-02-03T18:48:16.491000+00:00",
+      "prompt": "glass envelope, HD, white note, old feather pen, 4k, fantasy forrest background, glossy, ultra realistic, detailed",
+      "args": "--quality 5",
+      "image": "assets/images/thread-2231-step-3-regenerated.webp",
+      "alt": "Regenerated demonstration showing a glass envelope, white note, antique feather pen, and a fantasy forest from a slight angle",
+      "data_status": "recorded prompt + regenerated image",
+      "source_image": {
+        "recorded_url": "https://cdn.discordapp.com/attachments/989739763957391370/1071140082360266752/Amrosen_glass_envelope_HD_white_note_old_feather_pen_4k_fantasy_db46f9c6-eb7e-4114-a557-165508d8a8e1.png",
+        "status": "unavailable",
+        "http_status": 404,
+        "checked_on": "2026-09-13"
+      },
+      "regenerated_image": {
+        "status": "AI-generated demonstration",
+        "generated_on": "2026-09-13",
+        "relation_to_source": "Generated from the recorded prompt; not the historical Midjourney output."
+      },
+      "historical_action": {
+        "upscaled": true,
+        "statement": "An output from this historical step was upscaled by the original user."
+      }
     }
   ],
   "comparisons": [
     {
       "id": "c01",
-      "from": "p01",
-      "to": "p02",
-      "edit": "+ cinematic blue lighting",
-      "preference": {
-        "available": true,
-        "statement": "In this illustrative pairwise record, Variant B was selected",
-        "data_status": "prototype placeholder—not empirical evidence"
+      "from": "1071138984736084058",
+      "to": "1071139569849880656",
+      "edit": "+ “HD” · − “surreal”",
+      "derived_diff": {
+        "added": ["HD"],
+        "removed": ["surreal"]
       },
       "ai_interpretation": {
-        "tags": ["Blue tone ↑", "Contrast ↑", "Subject preserved"],
-        "summary": "The added phrase appears to shift the scene toward blue light and stronger contrast while retaining the street composition.",
-        "status": "pre-generated and manually checked"
+        "tags": ["Fantasy setting retained", "Surreal emphasis reduced", "Composition changed"],
+        "summary": "The regenerated comparison retains the glass-envelope subject and fantasy setting. The second image appears less dream-distorted, while the quill moves outside the envelope; this composition shift may reflect generation variability rather than the recorded edit alone.",
+        "status": "AI-generated and manually checked"
       }
     },
     {
       "id": "c02",
-      "from": "p02",
-      "to": "p03",
-      "edit": "+ watercolor texture",
-      "preference": {
-        "available": false,
-        "statement": "",
-        "data_status": "unavailable"
+      "from": "1071139569849880656",
+      "to": "1071140082511253515",
+      "edit": "+ “forrest” · − “front view”",
+      "derived_diff": {
+        "added": ["forrest"],
+        "removed": ["front view"]
       },
       "ai_interpretation": {
-        "tags": ["Texture ↑", "Edges soften", "Palette preserved"],
-        "summary": "The added phrase appears to soften hard edges and introduce translucent texture while mostly preserving the blue palette and layout.",
-        "status": "pre-generated and manually checked"
+        "tags": ["Forest context added", "Viewpoint shifts", "Subject retained"],
+        "summary": "The regenerated comparison places the subject inside a forest and shifts away from a strict front view while retaining the glass envelope, note, and feather pen. “Forrest” is preserved above as the source spelling and interpreted here as “forest.”",
+        "status": "AI-generated and manually checked"
       }
     }
   ]

@@ -18,6 +18,14 @@ function nodeById(id) {
   return projectData.nodes.find((node) => node.id === id);
 }
 
+function formatTimestamp(value) {
+  return new Intl.DateTimeFormat("en", {
+    dateStyle: "medium",
+    timeStyle: "short",
+    timeZone: "UTC"
+  }).format(new Date(value)) + " UTC";
+}
+
 function renderGraph() {
   const rows = [];
   projectData.nodes.forEach((node, index) => {
@@ -25,8 +33,9 @@ function renderGraph() {
       <article class="variant-node">
         <img src="${escapeHtml(node.image)}" alt="${escapeHtml(node.alt)}">
         <div>
-          <p class="node-kicker">${escapeHtml(node.label)} · ${escapeHtml(node.data_status)}</p>
+          <p class="node-kicker">${escapeHtml(node.label)} · record ${escapeHtml(node.id)}</p>
           <p class="node-prompt">${escapeHtml(node.prompt)}</p>
+          <p class="node-meta">${escapeHtml(formatTimestamp(node.timestamp))} · ${escapeHtml(node.args)}</p>
         </div>
       </article>
     `);
@@ -50,7 +59,10 @@ function renderGraph() {
 function imageCard(node, position) {
   return `<figure class="image-card">
     <img src="${escapeHtml(node.image)}" alt="${escapeHtml(node.alt)}">
-    <figcaption><span>${position}: ${escapeHtml(node.label)} · ${escapeHtml(node.data_status)}</span></figcaption>
+    <figcaption>
+      <strong>${position}: ${escapeHtml(node.label)}</strong>
+      <span>${escapeHtml(node.regenerated_image.status)} · ${escapeHtml(node.regenerated_image.generated_on)}</span>
+    </figcaption>
   </figure>`;
 }
 
@@ -63,14 +75,13 @@ function selectComparison(id) {
   const after = nodeById(comparison.to);
   document.querySelector("#edit-text").textContent = comparison.edit;
   document.querySelector("#prompt-pair").innerHTML = `
-    <div class="prompt-card"><strong>Before</strong>${escapeHtml(before.prompt)}</div>
-    <div class="prompt-card"><strong>After</strong>${escapeHtml(after.prompt)}</div>`;
+    <div class="prompt-card"><strong>Before · recorded source</strong>${escapeHtml(before.prompt)}<small>${escapeHtml(before.args)}</small></div>
+    <div class="prompt-card"><strong>After · recorded source</strong>${escapeHtml(after.prompt)}<small>${escapeHtml(after.args)}</small></div>`;
   document.querySelector("#image-pair").innerHTML = imageCard(before, "Before") + imageCard(after, "After");
 
-  const preference = comparison.preference;
-  document.querySelector("#preference-text").textContent = preference.available
-    ? `${preference.statement} (${preference.data_status})`
-    : "No public preference record is available for this pair.";
+  document.querySelector("#source-image-status").textContent =
+    `Unavailable source evidence: the recorded image URLs for both steps returned HTTP ${before.source_image.http_status} when checked on ${before.source_image.checked_on}.`;
+  document.querySelector("#action-text").textContent = after.historical_action.statement;
 
   document.querySelector("#change-tags").innerHTML = comparison.ai_interpretation.tags
     .map((tag) => `<span class="change-tag">${escapeHtml(tag)}</span>`)
@@ -94,8 +105,8 @@ function setMode(mode) {
     button.setAttribute("aria-pressed", String(active));
   });
   statusElement.textContent = baseline
-    ? "Baseline mode: graph and adjacent prompt-image evidence only."
-    : "Redesign mode: evidence, preference context, and labeled interpretation.";
+    ? "Baseline mode: prompt history and regenerated adjacent-image comparison only."
+    : "Redesign mode: source records, regenerated images, historical action, and AI interpretation are labeled separately.";
   if (activeComparisonId) selectComparison(activeComparisonId);
 }
 
@@ -110,6 +121,7 @@ fetch("data/prototype.json")
     projectData = data;
     renderGraph();
     selectComparison(data.comparisons[0].id);
+    statusElement.textContent = `Loaded ${data.nodes.length} records from ${data.dataset.name}, thread ${data.dataset.thread_id}.`;
   })
   .catch((error) => {
     statusElement.classList.add("error");

@@ -14,7 +14,7 @@
     <div>
       <p class="eyebrow">INFOSCI 301 · Preliminary redesign</p>
       <h1>Prompt Influence Inspector</h1>
-      <p class="subtitle">Inspect how a prompt edit relates to visible change—without confusing recorded evidence with AI interpretation.</p>
+      <p class="subtitle">Inspect a real prompt-revision record without confusing source data, regenerated visual evidence, historical user action, and AI interpretation.</p>
     </div>
     <div class="mode-switch" role="group" aria-label="Visualization mode">
       <button class="mode-button" data-mode="baseline" aria-pressed="false">Baseline</button>
@@ -25,7 +25,7 @@
   <main id="workspace">
     <section class="research-question" aria-labelledby="rq-heading">
       <p id="rq-heading" class="section-label">Research question</p>
-      <p>Can preference-aware, multimodal comparison help novice creators identify and explain meaningful prompt influence?</p>
+      <p>How can provenance-labeled multimodal comparison help novice creators inspect real prompt revisions without confusing recorded interaction data, regenerated visual evidence, and AI interpretation?</p>
     </section>
 
     <div id="status" class="status" role="status" aria-live="polite">Loading inspectable prototype data…</div>
@@ -39,7 +39,7 @@
           </div>
           <span class="source-badge">Source structure</span>
         </div>
-        <p class="panel-intro">Select an edit between two adjacent variants. The graph preserves the branching history emphasized by PrompTHis.</p>
+        <p class="panel-intro">Select an edit between adjacent records from Midjourney Threads. Prompt text and historical actions are recorded data; the displayed images are new demonstrations.</p>
         <div id="variant-graph" class="variant-graph" aria-label="Three prompt variants connected by two edits"></div>
       </article>
 
@@ -54,14 +54,14 @@
 
         <div id="baseline-message" class="baseline-message" hidden>
           <h3>Baseline view</h3>
-          <p>The attributed reconstruction exposes prompt history and adjacent images only. Preference context and interpretive summaries are intentionally hidden.</p>
+          <p>The attributed reconstruction exposes prompt history and adjacent visual comparison only. Historical-action context and interpretive summaries are intentionally hidden.</p>
         </div>
 
         <div id="comparison-content">
           <section class="evidence-block" aria-labelledby="prompt-change-title">
             <div class="block-title-row">
-              <h3 id="prompt-change-title">1. Prompt change</h3>
-              <span class="source-badge">Recorded evidence</span>
+              <h3 id="prompt-change-title">1. Recorded prompt change</h3>
+              <span class="source-badge">Source + derived diff</span>
             </div>
             <p id="edit-text" class="edit-text"></p>
             <div id="prompt-pair" class="prompt-pair"></div>
@@ -69,19 +69,21 @@
 
           <section class="evidence-block" aria-labelledby="visual-title">
             <div class="block-title-row">
-              <h3 id="visual-title">2. Visual evidence</h3>
-              <span class="source-badge">Observed images</span>
+              <h3 id="visual-title">2. Regenerated visual comparison</h3>
+              <span class="generated-badge">Generated demonstration</span>
             </div>
             <div id="image-pair" class="image-pair"></div>
+            <p id="source-image-status" class="missing-note"></p>
+            <p class="caution">These independently generated images illustrate the recorded prompts; they are not the historical Midjourney outputs and do not isolate causal prompt effects.</p>
           </section>
 
-          <section class="evidence-block redesign-only" aria-labelledby="preference-title">
+          <section class="evidence-block redesign-only" aria-labelledby="action-title">
             <div class="block-title-row">
-              <h3 id="preference-title">3. Human preference</h3>
-              <span class="source-badge">Recorded evidence</span>
+              <h3 id="action-title">3. Historical user action</h3>
+              <span class="source-badge">Recorded interaction</span>
             </div>
-            <p id="preference-text"></p>
-            <p class="caution">A pairwise choice is contextual evidence, not a universal quality score.</p>
+            <p id="action-text"></p>
+            <p class="caution">An upscale action is a behavioral trace, not an explicit preference judgment or universal quality score. It concerns the unavailable historical output, not the regenerated image above.</p>
           </section>
 
           <section class="interpretation-block redesign-only" aria-labelledby="ai-title">
@@ -91,7 +93,7 @@
             </div>
             <div id="change-tags" class="change-tags"></div>
             <p id="ai-summary"></p>
-            <p class="caution">AI-generated interpretation; manually checked for this prototype. Verify against the images.</p>
+            <p class="caution">AI-generated interpretation; manually checked for this prototype. Verify against the images and account for generation variability.</p>
           </section>
         </div>
       </aside>
@@ -102,9 +104,9 @@
       <h2 id="methods-title">What this prototype does—and does not claim</h2>
       <div class="method-cards">
         <article><h3>Baseline</h3><p>An attributed, simplified reconstruction of the PrompTHis Image Variant Graph—not the original system.</p></article>
-        <article><h3>Additional data</h3><p>Current records are illustrative scaffolding. A small, traceable Pick-a-Pic subset will replace them before evaluation.</p></article>
-        <article><h3>Emerging technology</h3><p>Pre-generated multimodal comparison summaries are visibly labeled and kept separate from source evidence.</p></article>
-        <article><h3>Missing evidence</h3><p>Creator intention is not inferred. When preference evidence is absent, the interface says so explicitly.</p></article>
+        <article><h3>Additional data</h3><p>Three consecutive records from Midjourney Threads, thread 2231, preserve exact prompts, timestamps, record IDs, and upscale labels.</p></article>
+        <article><h3>Emerging technology</h3><p>New prompt-conditioned images and pre-generated multimodal summaries are visibly labeled and separated from recorded evidence.</p></article>
+        <article><h3>Missing evidence</h3><p>The original CDN images return HTTP 404. Creator intention and explicit preference are unavailable and are not inferred.</p></article>
       </div>
     </section>
   </main>
