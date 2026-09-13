@@ -98,7 +98,7 @@ AI assistance was used to scaffold front-end code, illustrative SVG variants, pl
 ## Project links
 
 - Project repository: https://github.com/dku-infosci301-Autumn2026/infovis-sc972
-- Live website: _add the assigned Vercel production URL after deployment_
+- Live website: https://infovis-sc972.vercel.app/
 
 ## License
 
