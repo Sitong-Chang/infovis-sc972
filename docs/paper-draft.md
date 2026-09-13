@@ -99,8 +99,8 @@ After replacing Table 2 with real observations, the immediate design step is to 
 
 ## Current placement plan
 
-- **Figure 1:** selected PrompTHis Image Variant Graph/system view, with attribution.
-- **Figure 2:** the same comparison task in Baseline and Redesign modes.
+- **Figure 1:** `assets/screenshots/figure1-prompthis-original.png`, attributed to Guo et al., Fig. 7.
+- **Figure 2:** `assets/screenshots/figure2-baseline-vs-redesign.png`, matched Step 2→3 Baseline/Redesign screenshots.
 - **Table 1:** four-level validation: domain, data/task, idiom, algorithm.
 - Draft compression target: retain the research question, Tables 1–2, Figure 2, the design objective, three human decisions, and bounded conclusion in the two-page body; migrate supporting detail to Appendix A.
 

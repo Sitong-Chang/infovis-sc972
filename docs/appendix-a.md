@@ -112,6 +112,8 @@ Personal identifiers are not displayed. The dataset’s anonymous user ID and Di
 | Data file | `data/prototype.json` |
 | Image-generation record | `docs/image-generation-record.md` |
 | Evaluation record | `docs/evaluation-record.md` |
+| Figure 1 source image | `assets/screenshots/figure1-prompthis-original.png` |
+| Figure 2 comparison | `assets/screenshots/figure2-baseline-vs-redesign.png` |
 | Local run | `python -m http.server 8000`, then open `http://localhost:8000` |
 | Dependencies | No build step, package manager, API key, or backend |
 
@@ -130,6 +132,8 @@ Checks completed on 13 September 2026:
 - Baseline/Redesign visibility behavior worked.
 - JSON parsed successfully and JavaScript passed syntax checking.
 - The historical Discord image URLs returned HTTP 404.
+- Matched Baseline and Redesign screenshots were captured from the deployed Vercel page using the same Step 2→3 selection.
+- Figure 1 was extracted from Guo et al. [1], Fig. 7 and retains the original interface labels.
 
 ### A4.2 Failure handling
 
@@ -187,4 +191,3 @@ Anticipated-usability walkthroughs motivated three pre-test revisions: add a per
 - Additional dataset: Don-Yehiya, Choshen, and Abend, Midjourney Threads.
 - AI assistance: documented in Appendix B.
 - **[Add teammate/peer feedback credit only after confirming name, permission, and contribution.]**
-

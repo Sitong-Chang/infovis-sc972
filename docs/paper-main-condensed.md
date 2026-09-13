@@ -16,7 +16,9 @@ My 2056 aspiration—helping people question opaque recommendations rather than 
 
 The prospective community is DKU students and novice creators in Kunshan; their need remains a hypothesis. Missing voices include art/design students, professionals, instructors, and people who avoid generative AI. The project relates narrowly to SDG 4.4: provenance classification may exercise relevant ICT/AI literacy, but one prototype does not achieve the target [3].
 
-**Figure 1. Selected system.** *(Insert attributed PrompTHis Image Variant Graph screenshot.)*
+![PrompTHis interface showing the Image Variant Graph, history box, navigation mini-map, control panel, and creation panel](../assets/screenshots/figure1-prompthis-original.png)
+
+**Figure 1. Selected PrompTHis system.** The original interface coordinates the Image Variant Graph (a), history box (b), navigation mini-map (c), control panel (d), and creation panel (e). Source: Guo et al. [1], Fig. 7.
 
 ## 2. Critical Evaluation and Governance
 
@@ -46,7 +48,9 @@ Additional data and emerging technology jointly enable a provenance-aware compar
 
 A persistent legend maps blue to recorded, green to regenerated, amber to interpreted, and red to unavailable material. Baseline shows graph history and adjacent comparisons; Redesign exposes all four layers.
 
-**Figure 2. Same task before and after redesign.** *(Insert matched screenshots.)* Baseline preserves the PrompTHis-style history graph; Redesign adds explicit provenance and claim boundaries.
+![Matched screenshots comparing Baseline and Redesign modes for the Step 2 to Step 3 prompt revision](../assets/screenshots/figure2-baseline-vs-redesign.png)
+
+**Figure 2. Same task before and after redesign.** Both modes show the Step 2→3 comparison. Baseline preserves the attributed PrompTHis-style history graph; Redesign adds explicit provenance and claim boundaries.
 
 Three human decisions were consequential: **(1)** retain the graph rather than replace it; **(2)** never encode upscale as rank, node size, or quality; and **(3)** separate evidence from interpretation while keeping HTTP 404 visible. Images and summaries are stored locally instead of called through a live API, improving reproducibility while retaining model-error and randomness limitations.
 

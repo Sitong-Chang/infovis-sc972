@@ -16,6 +16,7 @@ An evidence-aware extension of a PrompTHis-inspired Image Variant Graph for INFO
 - Condensed two-page draft: [`docs/paper-main-condensed.md`](docs/paper-main-condensed.md)
 - Appendix A technical evidence: [`docs/appendix-a.md`](docs/appendix-a.md)
 - Appendix B AI assistance: [`docs/appendix-b.md`](docs/appendix-b.md)
+- Paper figures: [`assets/screenshots/`](assets/screenshots/)
 
 ## Selected IEEE VIS paper
 
