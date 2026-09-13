@@ -22,6 +22,35 @@ Field observations provide two transferable design cues. The Tencent industry pa
 
 The intended community is provisionally defined as DKU students and novice digital creators in Kunshan who use generative AI for coursework, design, or creative experimentation. Their need for provenance-aware comparison remains a hypothesis to be tested, not an established community claim. Missing voices include art and design students, professional creators, instructors, and people who avoid generative AI. The project relates narrowly to **SDG Target 4.4**, which concerns relevant technical skills and ICT capability [3]: provenance-labeled comparison may support AI-literacy practice, with correct evidence–interpretation classification as an observable outcome. It does not claim that one prototype achieves SDG 4.
 
+## 2. Critical Evaluation and Governance
+
+### 2.1 Four-level validation
+
+Table 1 applies Munzner’s nested model [4]. A limitation means that the published evidence does not validate my new audience or question; it does not mean the original authors failed to perform their stated work.
+
+**Table 1. Four-level validation of PrompTHis and resulting redesign consequences.**
+
+| Level | Evidence-based assessment of PrompTHis | Evidence location | Design consequence |
+|---|---|---|---|
+| **Domain** | **Strength:** requirements were developed through interviews and observation with two artists, and evaluation included amateurs and professionals. **Boundary:** the stated target was professional artists; provenance comprehension among novice student creators was not the evaluated domain. | Sec. III-A–B, pp. 3–4; Sec. VI-A–B, pp. 8–10 [1] | Treat DKU novice creators as a prospective proxy audience and test comprehension rather than claiming professional-workflow improvement. |
+| **Data/task** | **Strength:** prompt–image histories support review, pair comparison, model sensemaking, and planning (R1–R4). **Boundary:** the paper later identifies seed images, parameters, editing, and cross-tool histories as context still needing fuller capture. | Sec. III-B, p. 4; Sec. VI-B.4, pp. 10–11 [1] | Add one real iterative thread and a narrow task: identify an edit and classify the provenance of displayed claims. Do not infer creator intention. |
+| **Idiom** | **Strength:** image nodes, word-change edges, clustering, and projection make semantic history inspectable. **Boundary:** participants reported that dense nodes/edges could distract attention and requested more textual information for some tasks. | Sec. IV-B, p. 5; Sec. VI-B.4, p. 10 [1] | Retain a small attributed graph for history, then add a focused side-by-side Influence Inspector instead of replacing the graph. |
+| **Algorithm** | **Strength:** PrompTHis documents Myers word alignment, CLIP text/image embeddings, t-SNE with cosine distance, Procrustes alignment, agglomerative clustering, and edge weighting/filtering. **Reproducibility boundary:** results depend on thresholds and embedding/layout choices; the repository states that hosted backends may be inaccessible and local-backend instructions were still forthcoming. | Sec. IV-C–D, pp. 5–7 [1]; project README [5] | Do not claim to reproduce PrompTHis influence scores. Use a static no-build artifact, store exact records and interpretations locally, and expose missing/failure states. |
+
+This critique preserves PrompTHis’s strongest contribution—the graph’s overview of branching provenance—while changing the analytical contract. The redesign does not answer “Which word objectively caused this image?” It answers “What is recorded, regenerated, missing, or interpreted in this selected comparison?”
+
+### 2.2 Open science and data governance
+
+The baseline is an attributed reconstruction informed by the paper and repository, not exported PrompTHis session data. Complementary data come from **Midjourney Threads**, whose repository provides nine CSV files and documents fields including prompt text, generation arguments, anonymous user ID, timestamp, unique record ID, image URL, thread ID, BLIP-2 captions, and a Boolean label indicating whether an output was upscaled [2,6]. The prototype uses three consecutive rows from `threads_0.csv`, `thread_id=2231`, with record IDs stored in `data/prototype.json`.
+
+Following FAIR principles [7] and Datasheets for Datasets [8], the repository records source URLs, file and thread identifiers, selection logic, transformations, missingness, and claim boundaries. Exact prompts, timestamps, parameters, and upscale labels are **source records**. Added/removed terms are **derived values**. The three displayed pictures are **newly generated demonstrations**, and visual tags/summaries are **AI interpretations**. These categories use persistent color labels in the interface.
+
+The central governance problem is evidence substitution. All three historical Discord image URLs returned HTTP 404 on 13 September 2026. Replacing them silently would falsely imply that new images were historical evidence. The interface therefore shows the unavailable state next to the regenerated pair and states that independent generation cannot isolate causal prompt effects. Likewise, upscale is presented only as a behavioral trace concerning the unavailable historical output—not as explicit preference or aesthetic quality.
+
+Two consequential data gaps remain: the creator’s intention behind each edit and an explicit preference judgment. No suitable open record was identified for either in this selected thread, so the prototype does not infer them. The dataset repository documents access and fields but does not display a separate data license; redistribution and reuse conditions therefore require further confirmation before expanding beyond the minimal research sample. CARE is not applied as an Indigenous-data claim because no Indigenous community or authority is identified in this sample; community benefit remains a hypothesis requiring dialogue with the proposed DKU/Kunshan users.
+
+> **Design objective:** Enable novice creators to identify a recorded prompt edit and correctly distinguish source records, derived differences, regenerated visual evidence, missing originals, historical action, and AI interpretation.
+
 ## Current placement plan
 
 - **Figure 1:** selected PrompTHis Image Variant Graph/system view, with attribution.
@@ -36,3 +65,13 @@ The intended community is provisionally defined as DKU students and novice digit
 [2] S. Don-Yehiya, L. Choshen, and O. Abend. “Human Learning by Model Feedback: The Dynamics of Iterative Prompting with Midjourney.” *Proceedings of EMNLP 2023*, pp. 4146–4161. https://aclanthology.org/2023.emnlp-main.253/
 
 [3] United Nations Department of Economic and Social Affairs. “Goal 4: Quality Education—Target 4.4.” https://sdgs.un.org/goals/goal4
+
+[4] T. Munzner. *Visualization Analysis and Design*. CRC Press, 2014.
+
+[5] Vis4Sense. “PrompTHis” source repository and setup notes. https://github.com/Vis4Sense/prompthis
+
+[6] S. Don-Yehiya et al. “Mid-Journey-to-alignment” dataset repository. https://github.com/shachardon/Mid-Journey-to-alignment
+
+[7] M. D. Wilkinson et al. “The FAIR Guiding Principles for scientific data management and stewardship.” *Scientific Data*, 2016.
+
+[8] T. Gebru et al. “Datasheets for Datasets.” *Communications of the ACM*, 2021.
