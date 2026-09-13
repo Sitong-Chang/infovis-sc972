@@ -1,6 +1,6 @@
 # Prompt Influence Inspector: Separating Recorded Evidence from AI Interpretation
 
-Sitong Chang · INFOSCI 301 · Condensed two-page draft
+Sitong Chang · INFOSCI 301 · Condensed two-page paper
 
 ## Abstract
 
@@ -14,7 +14,7 @@ Text-to-image systems encourage trial-and-error prompt revision, but a polished 
 
 My earlier 2056 aspiration—helping people question opaque recommendations rather than simply accept system outputs—now extends to generative AI. The project connects human-centered visualization with critical AI literacy. A lesson from my earlier Energy Lens artifact also transfers: different questions require different visual idioms, while derived or interpreted values should not be presented as neutral source facts.
 
-Field observations also informed the redesign. An industry-panel example showed how coordinated views can connect an overview with focused evidence, motivating the graph-plus-inspector structure. A public-facing museum example demonstrated that visual form should follow the audience’s question, motivating a compact comparison view rather than a denser analytical interface. These observations are used as design inspiration rather than empirical evidence about the intended users.
+Field observations from the Shanghai Science and Technology Museum also informed the redesign. The “Energy Big Data in Shanghai” display combined multiple charts and indicators into a dense system-level overview, while the “Global Energy Map” foregrounded one geographic comparison task through a dominant spatial representation. I do not treat these observations as evidence about visitor comprehension. Instead, they provide a design cue: different analytical questions may benefit from different coordinated visual forms. This motivated retaining the graph for revision history while adding a focused inspector for provenance-aware comparison.
 
 The prospective community is DKU students and novice digital creators who use generative AI for coursework, design, or creative experimentation. This remains a scoped proxy audience rather than a claim about professional artists. Missing voices include art and design students, professional creators, instructors, and people who avoid generative AI. The project relates narrowly to SDG Target 4.4: provenance classification may exercise relevant ICT and AI-literacy skills, but one prototype does not itself achieve the target [3].
 
