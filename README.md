@@ -2,7 +2,7 @@
 
 An evidence-aware extension of a PrompTHis-inspired Image Variant Graph for INFOSCI 301. This static research artifact lets novice creators inspect a real prompt-revision sequence while keeping recorded data, regenerated demonstrations, historical user action, and AI interpretation visibly separate.
 
-> Status: **working v0.2 prototype**. The prompt records and upscale labels come from a public dataset. The displayed images are newly generated demonstrations because the recorded source-image URLs are no longer available.
+> Status: **working v0.3 prototype**. The prompt records and upscale labels come from a public dataset. The displayed images are newly generated demonstrations because the recorded source-image URLs are no longer available.
 
 ## Research question
 
@@ -51,6 +51,8 @@ Redesign mode adds a focused **Influence Inspector** with four layers:
 4. a model-generated, manually checked visual summary.
 
 The upscale label is treated as a behavioral trace, not an explicit preference judgment or objective quality score.
+
+Version 0.3 adds a persistent provenance legend and shorter claim-limit messages. These changes follow an anticipated-usability walkthrough and must not be reported as participant-derived findings until real testing is completed.
 
 ## Provenance and claim boundaries
 

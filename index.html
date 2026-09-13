@@ -28,6 +28,16 @@
       <p>How can provenance-labeled multimodal comparison help novice creators inspect real prompt revisions without confusing recorded interaction data, regenerated visual evidence, and AI interpretation?</p>
     </section>
 
+    <section class="provenance-legend" aria-label="Provenance legend">
+      <p class="section-label">How to read the evidence</p>
+      <div class="legend-items">
+        <span><i class="legend-dot source-dot" aria-hidden="true"></i><strong>Recorded</strong> source data</span>
+        <span><i class="legend-dot generated-dot" aria-hidden="true"></i><strong>Regenerated</strong> demonstration</span>
+        <span><i class="legend-dot interpretation-dot" aria-hidden="true"></i><strong>AI</strong> interpretation</span>
+        <span><i class="legend-dot missing-dot" aria-hidden="true"></i><strong>Unavailable</strong> source evidence</span>
+      </div>
+    </section>
+
     <div id="status" class="status" role="status" aria-live="polite">Loading inspectable prototype data…</div>
 
     <section class="workspace-grid" aria-label="Interactive prompt history and comparison">
@@ -74,7 +84,7 @@
             </div>
             <div id="image-pair" class="image-pair"></div>
             <p id="source-image-status" class="missing-note"></p>
-            <p class="caution">These independently generated images illustrate the recorded prompts; they are not the historical Midjourney outputs and do not isolate causal prompt effects.</p>
+            <p class="caution"><strong>Claim limit:</strong> these images illustrate the prompts; they do not isolate causal effects.</p>
           </section>
 
           <section class="evidence-block redesign-only" aria-labelledby="action-title">
@@ -83,7 +93,7 @@
               <span class="source-badge">Recorded interaction</span>
             </div>
             <p id="action-text"></p>
-            <p class="caution">An upscale action is a behavioral trace, not an explicit preference judgment or universal quality score. It concerns the unavailable historical output, not the regenerated image above.</p>
+            <p class="caution"><strong>Claim limit:</strong> upscale is a behavioral trace—not a preference score—and refers to the unavailable historical output.</p>
           </section>
 
           <section class="interpretation-block redesign-only" aria-labelledby="ai-title">
@@ -93,7 +103,7 @@
             </div>
             <div id="change-tags" class="change-tags"></div>
             <p id="ai-summary"></p>
-            <p class="caution">AI-generated interpretation; manually checked for this prototype. Verify against the images and account for generation variability.</p>
+            <p class="caution"><strong>Claim limit:</strong> manually checked AI interpretation; verify against the images.</p>
           </section>
         </div>
       </aside>

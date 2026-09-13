@@ -1,5 +1,5 @@
 {
-  "version": "0.2",
+  "version": "0.3",
   "dataset": {
     "name": "Midjourney Threads",
     "paper": "Human Learning by Model Feedback: The Dynamics of Iterative Prompting with Midjourney",
