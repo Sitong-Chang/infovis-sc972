@@ -51,12 +51,58 @@ Two consequential data gaps remain: the creator’s intention behind each edit a
 
 > **Design objective:** Enable novice creators to identify a recorded prompt edit and correctly distinguish source records, derived differences, regenerated visual evidence, missing originals, historical action, and AI interpretation.
 
+## 3. Integrated Redesign and Demo
+
+The redesign combines **additional data** and **emerging technology** to support a new, bounded capability. Midjourney Threads supplies a real three-step prompting sequence, including exact prompts, timestamps, generation arguments, record IDs, and whether an output was upscaled. Prompt-conditioned image generation supplies replacement comparison images when the recorded CDN images are unavailable, while multimodal reasoning produces a concise visual-change summary. Together, they let users inspect a real revision record without treating regenerated content or polished AI language as historical fact.
+
+The working interaction is an edge selection. A user switches between Baseline and Redesign and clicks either word-difference edge in the Image Variant Graph. Baseline shows the graph, adjacent prompts, and regenerated images. Redesign opens the **Influence Inspector**, which coordinates four layers: (1) recorded prompts plus a derived word diff; (2) side-by-side regenerated images and the missing-original warning; (3) the later step’s historical upscale action; and (4) model-derived tags and explanation. A persistent legend maps blue to recorded evidence, green to regenerated demonstration, amber to interpretation, and red to unavailable evidence.
+
+**Figure 2. Same task before and after redesign.** *(Insert two matched screenshots.)* The Baseline preserves an attributed PrompTHis-style history graph. The Redesign adds a focused inspector that separates recorded source data, regenerated images, historical action, missing evidence, and AI interpretation.
+
+Three consequential human decisions shaped the artifact:
+
+1. **Retain the graph rather than replace it with cards.** The graph continues to communicate revision sequence and provenance; the inspector answers the new focused-comparison question.
+2. **Do not convert upscale into ranking, node size, or “quality.”** The label remains contextual text because an action does not reveal a universal aesthetic judgment.
+3. **Separate evidence from interpretation and expose failure.** Generated pictures and AI summaries receive different colors from recorded data, while HTTP 404 originals remain visible as missing evidence.
+
+The emerging technology is intentionally pre-generated rather than called through a live API. Each image, interpretation, generation prompt, and verification note is stored in the repository. This reduces deployment failure and makes the preliminary demonstration inspectable, although it does not remove model error or randomness.
+
+## 4. Evaluation and Provisional Findings Structure
+
+The evaluation compares the same analytical contract across modes:
+
+> **Task:** Identify which recorded prompt edit corresponds most clearly to a visible contextual change, explain the change, and distinguish recorded evidence from regenerated or AI-generated material.
+
+Four to six DKU student proxies are planned. Participants complete one Baseline and one Redesign comparison, with mode and edge order counterbalanced. Measures are edit-identification accuracy, completion time, explanation quality, confidence (1–5), provenance classification, and whether the participant incorrectly equates upscale with preference. Student proxies are not treated as representative of professional artists.
+
+The planned success criterion is that at least four of five participants identify the relevant edit, distinguish recorded from generated material, and reject upscale as an objective preference score without a substantial increase in median completion time.
+
+**Table 2. Provisional reporting scaffold—simulated values, not participant findings.**
+
+| Measure | Baseline draft | Redesign draft |
+|---|---:|---:|
+| Fully correct edit identification | 2/4 | 4/4 |
+| Correct provenance distinction | 0/4 | 4/4 |
+| Median completion time | 87.5 s | 66.5 s |
+| Median confidence | 3.5/5 | 4.5/5 |
+| Correct upscale interpretation | Not exposed | 4/4 |
+
+These values currently demonstrate how results will be reported; they must be replaced after testing. The draft analysis anticipates four questions: whether explicit diffs reduce missed deletions; whether provenance labels prevent regenerated images being mistaken for historical outputs; whether the claim-limit message prevents preference overclaiming; and whether generation variability remains confusing. Only patterns supported by real records will become findings.
+
+## 5. Contribution, Limitations, and Next Step
+
+The intellectual contribution is a **provenance-layered comparison pattern** for generative-AI visualization. Rather than presenting source records, regenerated media, behavioral traces, and AI explanations as one seamless account, the design makes their different evidentiary roles inspectable. The practical contribution is a static GitHub/Vercel demonstration with no backend or API key, exact sample identifiers, locally stored images and summaries, keyboard-accessible controls, and explicit loading/failure states.
+
+The prototype does not recover the historical Midjourney images, determine the creator’s intention, prove causal prompt effects, or convert upscale into preference. Its sample contains one three-step thread, and independent regeneration introduces uncontrolled variation. The attributed Baseline is not a full PrompTHis replication. The planned student sample is small and cannot establish general effectiveness.
+
+After replacing Table 2 with real observations, the immediate design step is to test the revised legend and claim-limit messages with art/design students and other novice creators. A later system could collect creator-authored intention annotations and compare multiple generation models, but only with explicit provenance and reuse conditions.
+
 ## Current placement plan
 
 - **Figure 1:** selected PrompTHis Image Variant Graph/system view, with attribution.
 - **Figure 2:** the same comparison task in Baseline and Redesign modes.
 - **Table 1:** four-level validation: domain, data/task, idiom, algorithm.
-- Remaining main-text sections: Critical Evaluation and Governance; Integrated Redesign; Evaluation and Findings; Contribution and Limitations.
+- Draft compression target: retain the research question, Tables 1–2, Figure 2, the design objective, three human decisions, and bounded conclusion in the two-page body; migrate supporting detail to Appendix A.
 
 ## References used in this draft
 
