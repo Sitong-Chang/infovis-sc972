@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="An evidence-aware redesign of a PrompTHis-inspired image variant graph.">
+  <title>Prompt Influence Inspector</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#workspace">Skip to visualization</a>
+
+  <header class="site-header">
+    <div>
+      <p class="eyebrow">INFOSCI 301 · Preliminary redesign</p>
+      <h1>Prompt Influence Inspector</h1>
+      <p class="subtitle">Inspect how a prompt edit relates to visible change—without confusing recorded evidence with AI interpretation.</p>
+    </div>
+    <div class="mode-switch" role="group" aria-label="Visualization mode">
+      <button class="mode-button" data-mode="baseline" aria-pressed="false">Baseline</button>
+      <button class="mode-button active" data-mode="redesign" aria-pressed="true">Redesign</button>
+    </div>
+  </header>
+
+  <main id="workspace">
+    <section class="research-question" aria-labelledby="rq-heading">
+      <p id="rq-heading" class="section-label">Research question</p>
+      <p>Can preference-aware, multimodal comparison help novice creators identify and explain meaningful prompt influence?</p>
+    </section>
+
+    <div id="status" class="status" role="status" aria-live="polite">Loading inspectable prototype data…</div>
+
+    <section class="workspace-grid" aria-label="Interactive prompt history and comparison">
+      <article class="panel graph-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="section-label">Prompt provenance</p>
+            <h2>Image Variant Graph</h2>
+          </div>
+          <span class="source-badge">Source structure</span>
+        </div>
+        <p class="panel-intro">Select an edit between two adjacent variants. The graph preserves the branching history emphasized by PrompTHis.</p>
+        <div id="variant-graph" class="variant-graph" aria-label="Three prompt variants connected by two edits"></div>
+      </article>
+
+      <aside id="inspector" class="panel inspector" aria-labelledby="inspector-title">
+        <div class="panel-heading">
+          <div>
+            <p class="section-label">Focused comparison</p>
+            <h2 id="inspector-title">Influence Inspector</h2>
+          </div>
+          <span class="redesign-only interpretation-badge">Interpretation separated</span>
+        </div>
+
+        <div id="baseline-message" class="baseline-message" hidden>
+          <h3>Baseline view</h3>
+          <p>The attributed reconstruction exposes prompt history and adjacent images only. Preference context and interpretive summaries are intentionally hidden.</p>
+        </div>
+
+        <div id="comparison-content">
+          <section class="evidence-block" aria-labelledby="prompt-change-title">
+            <div class="block-title-row">
+              <h3 id="prompt-change-title">1. Prompt change</h3>
+              <span class="source-badge">Recorded evidence</span>
+            </div>
+            <p id="edit-text" class="edit-text"></p>
+            <div id="prompt-pair" class="prompt-pair"></div>
+          </section>
+
+          <section class="evidence-block" aria-labelledby="visual-title">
+            <div class="block-title-row">
+              <h3 id="visual-title">2. Visual evidence</h3>
+              <span class="source-badge">Observed images</span>
+            </div>
+            <div id="image-pair" class="image-pair"></div>
+          </section>
+
+          <section class="evidence-block redesign-only" aria-labelledby="preference-title">
+            <div class="block-title-row">
+              <h3 id="preference-title">3. Human preference</h3>
+              <span class="source-badge">Recorded evidence</span>
+            </div>
+            <p id="preference-text"></p>
+            <p class="caution">A pairwise choice is contextual evidence, not a universal quality score.</p>
+          </section>
+
+          <section class="interpretation-block redesign-only" aria-labelledby="ai-title">
+            <div class="block-title-row">
+              <h3 id="ai-title">4. AI interpretation</h3>
+              <span class="interpretation-badge">Model-derived</span>
+            </div>
+            <div id="change-tags" class="change-tags"></div>
+            <p id="ai-summary"></p>
+            <p class="caution">AI-generated interpretation; manually checked for this prototype. Verify against the images.</p>
+          </section>
+        </div>
+      </aside>
+    </section>
+
+    <section class="methods" aria-labelledby="methods-title">
+      <p class="section-label">Methods & evidence</p>
+      <h2 id="methods-title">What this prototype does—and does not claim</h2>
+      <div class="method-cards">
+        <article><h3>Baseline</h3><p>An attributed, simplified reconstruction of the PrompTHis Image Variant Graph—not the original system.</p></article>
+        <article><h3>Additional data</h3><p>Current records are illustrative scaffolding. A small, traceable Pick-a-Pic subset will replace them before evaluation.</p></article>
+        <article><h3>Emerging technology</h3><p>Pre-generated multimodal comparison summaries are visibly labeled and kept separate from source evidence.</p></article>
+        <article><h3>Missing evidence</h3><p>Creator intention is not inferred. When preference evidence is absent, the interface says so explicitly.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Preliminary research artifact by Sitong Chang · Data and interpretation labels are part of the redesign.</p>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
