@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-labelledby="title desc">
+  <title id="title">Illustrative city variant A</title><desc id="desc">A quiet dark city street at night.</desc>
+  <defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#17213a"/><stop offset="1" stop-color="#44506a"/></linearGradient></defs>
+  <rect width="800" height="500" fill="url(#sky)"/><circle cx="650" cy="100" r="45" fill="#d9d9c8" opacity=".8"/>
+  <path d="M0 230H150V125H280V255H390V165H545V250H690V145H800V500H0Z" fill="#111827"/>
+  <path d="M275 500 382 285h45l108 215Z" fill="#2c3448"/><path d="M384 305 397 500" stroke="#c8b76b" stroke-width="7" stroke-dasharray="28 30"/>
+  <g fill="#a6adbb" opacity=".55"><rect x="42" y="280" width="36" height="26"/><rect x="95" y="280" width="36" height="26"/><rect x="585" y="290" width="42" height="29"/><rect x="652" y="290" width="42" height="29"/></g>
+</svg>

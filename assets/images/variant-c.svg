@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-labelledby="title desc">
+  <title id="title">Illustrative city variant C</title><desc id="desc">The blue city street has translucent watercolor texture.</desc>
+  <defs><filter id="soft"><feGaussianBlur stdDeviation="6"/></filter><linearGradient id="wash" x2="1" y2="1"><stop stop-color="#092e72"/><stop offset=".5" stop-color="#2aa5df"/><stop offset="1" stop-color="#6a45bd"/></linearGradient></defs>
+  <rect width="800" height="500" fill="#e7f5ff"/><rect x="-30" y="-20" width="860" height="540" rx="100" fill="url(#wash)" opacity=".9" filter="url(#soft)"/>
+  <path d="M0 240H145V120H285V260H390V160H550V255H695V140H800V500H0Z" fill="#071b40" opacity=".82" filter="url(#soft)"/>
+  <path d="M270 500 380 285h48l112 215Z" fill="#143b78" opacity=".8"/><path d="M385 305 398 500" stroke="#c8f3ff" stroke-width="10" stroke-dasharray="35 28" opacity=".75"/>
+  <g fill="#93e9ff" opacity=".75" filter="url(#soft)"><circle cx="110" cy="300" r="45"/><circle cx="620" cy="305" r="55"/><circle cx="660" cy="95" r="70"/></g>
+  <g fill="none" stroke="#f2fbff" stroke-width="7" opacity=".28"><path d="M20 70q120 80 250 5t250 15 250-20"/><path d="M30 400q130-70 260 5t250-5 230 25"/></g>
+</svg>

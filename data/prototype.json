@@ -1,0 +1,63 @@
+{
+  "data_status": "Illustrative prototype data; not a Pick-a-Pic sample",
+  "nodes": [
+    {
+      "id": "p01",
+      "label": "Variant A",
+      "prompt": "a quiet city street at night",
+      "image": "assets/images/variant-a.svg",
+      "alt": "Illustrative dark city street with simple building silhouettes and a pale moon",
+      "data_status": "illustrative"
+    },
+    {
+      "id": "p02",
+      "label": "Variant B",
+      "prompt": "a quiet city street at night, cinematic blue lighting",
+      "image": "assets/images/variant-b.svg",
+      "alt": "Illustrative city street shifted toward vivid blue lighting and higher contrast",
+      "data_status": "illustrative"
+    },
+    {
+      "id": "p03",
+      "label": "Variant C",
+      "prompt": "a quiet city street at night, cinematic blue lighting, watercolor texture",
+      "image": "assets/images/variant-c.svg",
+      "alt": "Illustrative blue city street with translucent watercolor-like texture",
+      "data_status": "illustrative"
+    }
+  ],
+  "comparisons": [
+    {
+      "id": "c01",
+      "from": "p01",
+      "to": "p02",
+      "edit": "+ cinematic blue lighting",
+      "preference": {
+        "available": true,
+        "statement": "In this illustrative pairwise record, Variant B was selected",
+        "data_status": "prototype placeholder—not empirical evidence"
+      },
+      "ai_interpretation": {
+        "tags": ["Blue tone ↑", "Contrast ↑", "Subject preserved"],
+        "summary": "The added phrase appears to shift the scene toward blue light and stronger contrast while retaining the street composition.",
+        "status": "pre-generated and manually checked"
+      }
+    },
+    {
+      "id": "c02",
+      "from": "p02",
+      "to": "p03",
+      "edit": "+ watercolor texture",
+      "preference": {
+        "available": false,
+        "statement": "",
+        "data_status": "unavailable"
+      },
+      "ai_interpretation": {
+        "tags": ["Texture ↑", "Edges soften", "Palette preserved"],
+        "summary": "The added phrase appears to soften hard edges and introduce translucent texture while mostly preserving the blue palette and layout.",
+        "status": "pre-generated and manually checked"
+      }
+    }
+  ]
+}

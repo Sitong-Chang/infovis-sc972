@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-labelledby="title desc">
+  <title id="title">Illustrative city variant B</title><desc id="desc">The city street uses vivid cinematic blue lighting.</desc>
+  <defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#061638"/><stop offset=".7" stop-color="#084bb5"/><stop offset="1" stop-color="#18a8d8"/></linearGradient><radialGradient id="glow"><stop stop-color="#c7f4ff" stop-opacity=".95"/><stop offset="1" stop-color="#3aa7ff" stop-opacity="0"/></radialGradient></defs>
+  <rect width="800" height="500" fill="url(#sky)"/><circle cx="650" cy="100" r="105" fill="url(#glow)"/>
+  <path d="M0 230H150V125H280V255H390V165H545V250H690V145H800V500H0Z" fill="#050b1d"/>
+  <path d="M275 500 382 285h45l108 215Z" fill="#0a214b"/><path d="M384 305 397 500" stroke="#9deaff" stroke-width="8" stroke-dasharray="28 30"/>
+  <g fill="#5edcff"><rect x="42" y="280" width="36" height="26"/><rect x="95" y="280" width="36" height="26"/><rect x="585" y="290" width="42" height="29"/><rect x="652" y="290" width="42" height="29"/></g>
+</svg>
