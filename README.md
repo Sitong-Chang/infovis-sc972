@@ -13,6 +13,7 @@ An evidence-aware extension of a PrompTHis-inspired Image Variant Graph for INFO
 - Project repository: https://github.com/dku-infosci301-Autumn2026/infovis-sc972
 - Live website: https://infovis-sc972.vercel.app/
 - Working paper draft: [`docs/paper-draft.md`](docs/paper-draft.md)
+- Condensed two-page draft: [`docs/paper-main-condensed.md`](docs/paper-main-condensed.md)
 - Appendix A technical evidence: [`docs/appendix-a.md`](docs/appendix-a.md)
 - Appendix B AI assistance: [`docs/appendix-b.md`](docs/appendix-b.md)
 
