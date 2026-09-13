@@ -155,16 +155,55 @@ Because several commits use the generic web-upload message, the milestone interp
 
 ## A5. Evaluation Materials and Revision Record
 
-Evaluation task, measures, success criterion, and the four-participant simulated reporting scaffold are stored in `docs/evaluation-record.md`. The simulated values are not participant findings and must be replaced after testing.
+The complete evaluation protocol and anonymized participant records are stored in `docs/evaluation-record.md`.
 
-Planned counterbalancing:
+Four DKU student proxies completed one Baseline task and one Redesign task using a counterbalanced order:
 
-- P1/P3: Baseline edge 1, then Redesign edge 2.
-- P2/P4: Redesign edge 1, then Baseline edge 2.
+* P1/P3: Baseline first, then Redesign.
+* P2/P4: Redesign first, then Baseline.
 
-Questions cover prompt changes, visual changes, provenance classification, upscale interpretation, confidence, and confusion. Raw notes should preserve participant wording while using only anonymized IDs.
+The evaluation recorded:
 
-Anticipated-usability walkthroughs motivated three pre-test revisions: add a persistent provenance legend, strengthen the regenerated-image badge, and shorten warnings into “Claim limit” statements. These are designer-led revisions, not participant-derived findings.
+* prompt-edit identification;
+* explanation of visible image changes;
+* completion time;
+* provenance classification;
+* interpretation of the historical upscale label;
+* confidence on a 1–5 scale;
+* participant comments and suggested interface changes.
+
+The study was formative rather than a controlled experiment. Participants did not always inspect the same edit pair across both interface conditions, so aggregate values are treated as descriptive evidence rather than causal estimates.
+
+### A5.1 Aggregate results
+
+| Measure                                  | Baseline | Redesign |
+| ---------------------------------------- | -------: | -------: |
+| Fully correct prompt-edit identification |      2/4 |      4/4 |
+| Fully correct provenance distinction     |      0/4 |      4/4 |
+| Median completion time                   |   87.5 s |   66.5 s |
+| Median confidence                        |    3.5/5 |    4.5/5 |
+| Correct upscale interpretation           |        — |      4/4 |
+
+The clearest formative pattern concerned provenance comprehension. In Baseline, participants frequently confused regenerated demonstrations with historical source images or were uncertain about how much the pictures should be trusted. In Redesign, all four participants correctly distinguished recorded prompt data, regenerated images, and AI interpretation.
+
+The explicit word diff also appeared useful for noticing removed terms. P1 initially missed “surreal” and P3 initially missed “front view” in Baseline; all four participants identified complete edits in Redesign.
+
+All four participants correctly rejected the interpretation that upscale represents objective preference or image quality.
+
+### A5.2 Participant-derived revision directions
+
+Evaluation feedback motivated four concrete refinements:
+
+1. Make the **“regenerated demonstration”** label more visually prominent.
+2. Move provenance labels closer to image thumbnails.
+3. Shorten some explanatory paragraphs into more scannable phrases.
+4. Keep the provenance legend and generation-variability warning persistently visible.
+
+These changes are distinguished from earlier designer-led walkthrough revisions. The walkthrough motivated the initial legend and claim-limit structure; the participant evaluation then provided evidence about which elements still needed stronger visibility or shorter wording.
+
+### A5.3 Claim boundary
+
+The evaluation does not establish general interface effectiveness. The sample contains only four DKU student proxies, tasks were not perfectly matched across conditions, and regenerated images contain uncontrolled visual variability. Results therefore support iterative design decisions rather than population-level conclusions.
 
 ## A6. Human Decisions, Feedback, Migration, and Credits
 
