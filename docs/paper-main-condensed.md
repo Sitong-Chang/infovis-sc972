@@ -1,109 +1,136 @@
-# Prompt Influence Inspector: Separating Recorded Evidence from AI Interpretation
+# Prompt Influence Explorer: Exploring Revision Patterns with Transparent Evidence
 
-Sitong Chang · INFOSCI 301 · Two-Page Main Paper
+Sitong Chang · NetID sc972 · Duke Kunshan University
+
+INFOSCI 301: Data Visualization and Information Aesthetics — Autumn 2026
+
+Instructor: Prof. Luyao Zhang
 
 ## Abstract
 
-Text-to-image creation often involves iterative prompt editing, but visible output differences do not reveal which information is historical evidence, regenerated demonstration, or AI interpretation. Building on PrompTHis [1], I redesign its prompt-history comparison for provenance-aware inspection. The prototype combines a real three-step sequence from Midjourney Threads [2] with regenerated images and a multimodal visual-change summary. The resulting Influence Inspector separates recorded prompts and upscale actions, derived word differences, regenerated media, unavailable historical images, and AI interpretation. A formative evaluation with four DKU student proxies found clearer provenance understanding and more complete prompt-edit identification in the redesign, while also revealing continuing uncertainty caused by generation variability. The contribution is a provenance-layered comparison pattern for critical inspection of generative-AI histories.
+Text-to-image creation involves repeated prompt editing, yet a single before-and-after comparison cannot reveal broader revision patterns or clarify the status of every displayed element. Building on Guo et al.’s PrompTHis [5] and my first provenance-focused redesign, I developed Prompt Influence Explorer. The final prototype analyzes a 20,000-record slice of Midjourney Threads [6], yielding 7,307 qualifying consecutive revisions across 3,116 threads and a browser sample of 60 threads and 104 transitions. Coordinated bars, a prompt-change versus caption-change scatterplot, a revision landscape, a semantic edit matrix, and a details-on-demand inspector support overview and close inspection. Evidence controls separate recorded records, deterministic derivations, BLIP-2 captions, regenerated demonstrations, and unavailable evidence. The contribution is an evidence-aware visual analysis workflow that supports pattern exploration without treating association, model interpretation, or historical action as causal truth.
 
-## 1. Research Question and Design Context
+**Keywords:** provenance; prompt revision; coordinated views; generative AI; responsible visualization
 
-PrompTHis represents text-to-image creation history through an Image Variant Graph in which generated images form nodes and prompt changes form edges [1]. It already supports prompt comparison and influence analysis, so my redesign does not claim to invent these capabilities. Instead, I ask:
+## 1. Introduction and Research Question
 
-> **RQ: How can provenance-labeled multimodal comparison help novice creators inspect real prompt revisions without confusing recorded interaction data, regenerated visual evidence, and AI interpretation?**
+PrompTHis visualizes prompt-edit histories through an Image Variant Graph and supports comparison of prompt-image relationships [5]. My first redesign added a provenance-aware inspector for one three-step thread. The final version retains that close-comparison function but addresses a remaining limitation: one example cannot show how revision strategies vary across many threads.
 
-The project extends an earlier course concern with transparency: system-generated rankings, derived values, and AI explanations should not appear as neutral source facts. Field observations at the Shanghai Science and Technology Museum reinforced a related visualization lesson: a dense overview and a focused comparison foreground different questions. This motivated retaining the graph for revision history while adding a focused inspector for evidence comparison.
+> **RQ: How can interactive visualization help creators explore patterns between prompt revisions and image-description changes while preserving the provenance of recorded, derived, regenerated, and AI-interpreted evidence?**
 
-The prospective audience is DKU students and novice digital creators using generative AI for coursework or creative experimentation. This is a scoped proxy audience rather than a claim about professional artists.
+This extends my earlier course focus on transparency. Week 1 separated source data from designer-produced ranking values, while Week 2 showed that different questions require different visual idioms. The final design therefore links an overview, filters, selection, and details on demand instead of forcing every question into one comparison view.
 
-## 2. Critical Evaluation and Data Governance
+The prospective audience is DKU students and novice digital creators who iteratively refine generative-image prompts. This remains a scoped audience hypothesis rather than a validated community-wide need. The project connects narrowly to SDG 4.4 through practice in AI and data literacy: users inspect how claims were produced instead of receiving model-generated explanations as neutral facts.
 
-Table 1 applies Munzner’s nested model [3] to identify what should be retained and what requires redesign.
+![Energy Big Data in Shanghai](../assets/field/energy-big-data-shanghai.jpg) ![Global Energy Map](../assets/field/global-energy-map.jpg)
 
-**Table 1. Four-level validation and redesign consequence.**
+**Figure 1. Field evidence and design inspiration.** (a) *Energy Big Data in Shanghai*: dense system overview. (b) *Global Energy Map*: focused geographic comparison. Shanghai Science and Technology Museum, September 4, 2026. These photographs are design inspiration, not evidence about visitor comprehension.
 
-| Level | Evidence-based boundary | Redesign consequence |
+## 2. Critical Evaluation and Governance
+
+### 2.1 Classic four-level validation
+
+**Table 1. Four-level validation of PrompTHis and the current redesign.**
+
+| Level | Evidence and design consequence |
+|---|---|
+| Domain | PrompTHis targets artists; novice-student provenance comprehension is not its evaluated domain. I therefore retain a scoped student audience. |
+| Data/task | The 20,000-record source slice supports pattern exploration, but creator intention and causal prompt effects remain unavailable. |
+| Idiom | Bars, a scatterplot, a thread landscape, a semantic matrix, and an inspector answer comparison, variation, structure, and detail questions. |
+| Algorithm | The update uses deterministic token differences and Jaccard distances plus a disclosed keyword heuristic. BLIP-2 caption distance remains model-derived. |
+
+### 2.2 Open science and governance
+
+The complementary source is Midjourney Threads [6]. I analyze the 20,000 records in `threads_0.csv`. A reproducible script groups records by thread and timestamp, retains English consecutive revisions with prompt-token Jaccard similarity of at least 0.35, and produces 7,307 qualifying transitions across 3,116 threads. The browser uses a deterministic sample of 60 threads and 104 transitions, including thread 2231 as the close-inspection case.
+
+The source includes prompt text, record identifiers, timestamps, generation parameters, upscale labels, historical image URLs, and four BLIP-2 captions per record. The recorded historical image URLs for thread 2231 returned HTTP 404 on September 13, 2026. Regenerated images are therefore labeled demonstrations rather than presented as originals.
+
+The interface distinguishes:
+
+- **recorded:** prompts, IDs, timestamps, parameters, and upscale actions;
+- **derived:** token differences, edit types, Jaccard distances, and keyword-based semantic focus;
+- **AI-derived:** BLIP-2 captions contained in the source dataset and caption-change distances;
+- **regenerated:** three new comparison images for thread 2231;
+- **unavailable:** historical images, creator intention, and explicit preference.
+
+Upscale is a behavioral trace, not a preference or quality score. Caption change compares model-generated descriptions rather than image pixels, and scatterplot associations are not presented as causal effects.
+
+> **Design objective:** connect aggregate revision patterns to exact source records while keeping computation, model interpretation, demonstration material, and missing evidence visible.
+
+## 3. Integrated Redesign and Demo
+
+The final redesign places an exploratory overview before the existing Influence Inspector. The coordinated views answer four distinct questions:
+
+1. edit-direction bars compare how prompts are revised and also act as filters;
+2. a scatterplot shows how prompt-token change relates to BLIP-2 caption-token change;
+3. a thread landscape reveals revision length, sequence, edit direction, and outlying transitions;
+4. a semantic matrix and inspector show which prompt dimensions changed and expose the exact records.
+
+Search, edit type, upscale action, and minimum-change controls update all views. Selecting a bar, point, thread segment, or matrix cell updates the detailed inspector. Evidence-layer controls allow users to hide derived, AI-caption, or regenerated material while recorded records remain visible.
+
+![Final multi-thread Prompt Influence Explorer](../assets/screenshots/figure2-final-explorer.jpg)
+
+**Figure 2. Final multi-thread Explorer.** Edit-type bars and the prompt-versus-caption change scatterplot summarize 104 revisions across 60 sampled threads and link to source inspection.
+
+Four human decisions define the final redesign:
+
+1. retain Baseline and the inspector so patterns can be checked against exact records;
+2. add a view only when it answers a comparison, variation, or structure question;
+3. do not encode upscale or distance measures as quality, preference, or causal influence;
+4. let users hide interpretive layers while keeping recorded evidence visible.
+
+Static HTML, CSS, JavaScript, and JSON implement the interface; a Python script rebuilds the analysis file.
+
+- Website: https://infovis-sc972.vercel.app/
+- Project: https://github.com/dku-infosci301-Autumn2026/infovis-sc972
+
+## 4. Evaluation and Findings
+
+The formative evaluation concerns the first one-thread provenance redesign, not the final Explorer. Four DKU students completed related inspection tasks using the Image Variant Graph and evidence sections; I recorded time, confidence, behavior, comments, and implications.
+
+**Table 2. Descriptive formative-evaluation results.**
+
+| Measure | Observed result | Interpretation |
 |---|---|---|
-| **Domain** | PrompTHis was designed around artists; novice-student provenance comprehension was not its evaluated domain. | Test comprehension with student proxies rather than claim professional workflow improvement. |
-| **Data/task** | Prompt histories support review and comparison, but creator intention and explicit preference are not directly available. | Use a real revision thread but do not infer intention or preference. |
-| **Idiom** | The graph reveals history, but dense nodes and edges can distract from focused comparison [1]. | Retain the graph and add a side-by-side Influence Inspector. |
-| **Algorithm** | PrompTHis documents embedding, alignment, clustering, and influence computation, but these depend on model and layout choices [1]. | Do not reproduce or claim its influence scores; use an inspectable static artifact. |
+| Completion and time | 4/4; median 82.5 s | 68–112 s; tasks differed |
+| Confidence | 3, 4, 4, 3 | Median 3.5/5 |
+| Initial ambiguity | 4/4 | Provenance, edge, upscale, or AI authority |
+| After cue | 4/4 corrected | Formative; no baseline or final-Explorer test |
 
-The complementary data source is **Midjourney Threads** [2]. I use three consecutive records from `thread_id = 2231`, producing two compact revisions: adding “HD” while removing “surreal,” and adding “forrest” while removing “front view.”
+P1 confused a regenerated image with historical output; P2 read graph edges as similarity; P3 inferred preference from upscale; and P4 treated AI interpretation as a causal answer. Each revised the interpretation after checking labels, timestamps, prompt changes, or claim limits.
 
-The historical image URLs for all three selected records returned HTTP 404 on September 13, 2026. Replacing them silently would create **evidence substitution**. The interface therefore distinguishes five provenance classes:
+Cues corrected misunderstanding, but often only after it began. The next revision should place provenance beside images, mark **Earlier → Later**, pair **Observed: upscale** with **Unknown: reason or preference**, and visually subordinate AI interpretation.
 
-- **recorded:** prompts, parameters, IDs, timestamps, upscale Boolean;
-- **derived:** word-level additions and removals;
-- **regenerated:** newly generated comparison images;
-- **interpreted:** AI-produced visual tags and summaries;
-- **missing:** historical images, creator intention, and explicit preference.
+The findings are descriptive: tasks differed, the sample is small, and there is no controlled baseline. The final Explorer remains untested; BLIP-2 caption distance is a model-derived proxy.
 
-The upscale label is treated only as a historical behavioral trace. It is not encoded as preference, quality, or ranking.
+## 5. Contribution and Next Step
 
-> **Design objective:** help users identify a recorded prompt edit while distinguishing source evidence, derived information, regenerated media, missing evidence, behavioral traces, and AI interpretation.
+The final contribution is an evidence-aware workflow that links multi-thread pattern exploration to source-level inspection while preserving provenance.
 
-## 3. Integrated Redesign
+The prototype does not recover historical images, infer intention or preference, treat captions as visual truth, or establish causal prompt effects.
 
-The redesign adds an **Influence Inspector** coordinated with the existing graph. Selecting an edit edge reveals:
+Next, I would compare the Explorer with the one-thread interface using matched tasks and a larger art, design, and creative-technology sample, while separately checking AI-caption accuracy and neutrality.
 
-1. recorded before/after prompts and an explicit word diff;
-2. regenerated images with a missing-source warning;
-3. the later record’s historical upscale action;
-4. a labeled AI-generated visual summary.
+## Acknowledgements
 
-A persistent legend separates recorded, regenerated, interpreted, and unavailable information.
-
-![Matched screenshots comparing Baseline and Redesign modes for the Step 2 to Step 3 prompt revision](../assets/screenshots/figure2-baseline-vs-redesign.png)
-
-**Figure 1. Baseline versus Redesign.** The Baseline retains a simplified PrompTHis-style history graph. The Redesign adds provenance labels, explicit prompt differences, historical-action context, and AI interpretation while keeping unavailable evidence visible.
-
-Three human decisions define the redesign. First, the graph is retained because it still communicates revision sequence. Second, upscale is not converted into a score or visual ranking. Third, evidence and interpretation are separated instead of being merged into one seamless explanation.
-
-The generated images and AI summaries are stored locally rather than produced through a live API. This improves reproducibility and deployment reliability but does not eliminate model error or generation randomness.
-
-## 4. Formative Evaluation
-
-Four DKU student proxies completed one Baseline task and one Redesign task in counterbalanced order. They identified prompt edits, explained visible changes, classified provenance, interpreted upscale, and rated confidence from 1–5.
-
-The study was formative rather than controlled: participants did not always inspect identical edit pairs across conditions, so results are descriptive rather than causal.
-
-**Table 2. Formative evaluation results.**
-
-| Measure | Baseline | Redesign |
-|---|---:|---:|
-| Fully correct prompt-edit identification | 2/4 | 4/4 |
-| Fully correct provenance distinction | 0/4 | 4/4 |
-| Median completion time | 87.5 s | 66.5 s |
-| Median confidence | 3.5/5 | 4.5/5 |
-| Correct upscale interpretation | — | 4/4 |
-
-The strongest pattern concerned provenance. In Baseline, participants either mistook regenerated images for historical source material or remained uncertain about their status. In Redesign, all four correctly distinguished recorded data, regenerated demonstrations, and AI interpretation.
-
-The explicit word diff also appeared to help with missed removals: two Baseline participants initially overlooked deleted terms, while all four identified complete edits in Redesign.
-
-All four participants correctly rejected the claim that upscale represented objective preference or image quality.
-
-However, generation variability remained visible. Participants noticed changes in composition, position, and layout that could not safely be attributed to one prompt edit. This supports keeping uncertainty visible and avoiding statements such as “this word caused this image change.”
-
-## 5. Contribution and Limitations
-
-The project contributes a **provenance-layered comparison pattern** for generative-AI visualization. Instead of presenting source records, regenerated media, behavioral traces, missing evidence, and AI explanations as one authoritative account, the redesign makes their evidentiary roles inspectable.
-
-The prototype cannot recover the original Midjourney images, determine creator intention, prove causal prompt effects, or convert upscale into preference. It uses one three-step thread and only four student proxies, so the evaluation does not establish general effectiveness.
-
-The next iteration should strengthen regenerated-image labels, shorten explanatory text, and test the provenance pattern with a larger and more diverse group of art, design, and creative-technology users.
+I thank the four anonymous student participants and the peer reviewers who motivated this update. The baseline adapts PrompTHis [5], and analysis data come from Midjourney Threads [6]. I verified source records, calculations, visuals, claims, and evaluation summaries; Appendix B gives the full AI disclosure.
 
 ## References
 
-[1] Y. Guo, H. Shao, C. Liu, K. Xu, and X. Yuan. “PrompTHis: Visualizing the Process and Influence of Prompt Editing during Text-to-Image Creation.” *IEEE Transactions on Visualization and Computer Graphics*, 2024.
+[1] Tamara Munzner. 2009. “A Nested Model for Visualization Design and Validation.” *IEEE Transactions on Visualization and Computer Graphics* 15(6), 921–928. https://www.cs.ubc.ca/labs/imager/tr/2009/NestedModel/
 
-[2] S. Don-Yehiya, L. Choshen, and O. Abend. “Human Learning by Model Feedback: The Dynamics of Iterative Prompting with Midjourney.” *Proceedings of EMNLP*, 2023.
+[2] Mark D. Wilkinson et al. 2016. “The FAIR Guiding Principles for Scientific Data Management and Stewardship.” *Scientific Data* 3, 160018. https://doi.org/10.1038/sdata.2016.18
 
-[3] T. Munzner. *Visualization Analysis and Design*. CRC Press, 2014.
+[3] Timnit Gebru et al. 2021. “Datasheets for Datasets.” *Communications of the ACM* 64(12), 86–92. https://doi.org/10.1145/3458723
 
-[4] M. D. Wilkinson et al. “The FAIR Guiding Principles for Scientific Data Management and Stewardship.” *Scientific Data*, 2016.
+[4] R. Ziman, S. Saharan, G. McGill, and L. Garrison. 2026. “‘It Looks Sexy but It’s Wrong’: Tensions in Creativity and Accuracy Using GenAI for Biomedical Visualization.” *IEEE Transactions on Visualization and Computer Graphics* 32(1), 320–330. https://doi.org/10.1109/TVCG.2025.3633883
 
-[5] T. Gebru et al. “Datasheets for Datasets.” *Communications of the ACM*, 2021.
+[5] Y. Guo, H. Shao, C. Liu, K. Xu, and X. Yuan. 2024. “PrompTHis: Visualizing the Process and Influence of Prompt Editing during Text-to-Image Creation.” *IEEE Transactions on Visualization and Computer Graphics*. https://arxiv.org/abs/2403.09615
 
-Full technical evidence, field observations, data-governance details, participant records, and continuity with earlier course work appear in Appendix A. AI assistance and human verification are documented in Appendix B.
+[6] S. Don-Yehiya, L. Choshen, and O. Abend. 2023. “Human Learning by Model Feedback: The Dynamics of Iterative Prompting with Midjourney.” *Proceedings of EMNLP 2023*. https://aclanthology.org/2023.emnlp-main.253/
+
+[7] Shachar Don-Yehiya et al. *Mid-Journey-to-alignment*. https://github.com/shachardon/Mid-Journey-to-alignment
+
+[8] United Nations Department of Economic and Social Affairs. “Goal 4: Quality Education — Target 4.4.” https://sdgs.un.org/goals/goal4
+
+[9] Lee et al. 2024. “Diffusion Explainer.” IEEE VIS 2024 short paper and interactive system. https://ieeevis.org/year/2024/program/paper_v-short-1224.html

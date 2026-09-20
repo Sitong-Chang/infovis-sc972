@@ -74,16 +74,17 @@ The scatterplot therefore asks whether two **measured descriptions change togeth
 
 ## Evaluation evidence
 
-The page visualizes the first redesign's formative evaluation with four anonymized DKU student proxies:
+The page visualizes a formative evaluation of the **first one-thread provenance redesign** with four anonymized DKU student participants. Each participant completed a related inspection task; the tasks were not identical and there was no controlled baseline.
 
-| Measure | Baseline | First redesign |
-|---|---:|---:|
-| Fully correct prompt-edit identification | 2/4 | 4/4 |
-| Fully correct provenance distinction | 0/4 | 4/4 |
-| Median completion time | 87.5 s | 66.5 s |
-| Median confidence | 3.5/5 | 4.5/5 |
+| Participant | Time | Confidence | Initial ambiguity | Cue that supported correction |
+|---|---:|---:|---|---|
+| P1 | 68 s | 4/5 | Regenerated image read as historical output | Generated demonstration label |
+| P2 | 91 s | 3/5 | Graph edge read as image similarity | Timestamps and prompt changes |
+| P3 | 74 s | 4/5 | Upscale read as preference | Claim-limit warning |
+| P4 | 112 s | 3/5 | AI interpretation read as a causal answer | Model-derived warning |
+| **Median** | **82.5 s** | **3.5/5** | **4/4 began with an ambiguity** | **4/4 revised after a cue** |
 
-These are descriptive, preliminary results—not causal or population-level evidence. A future study should test the new multi-thread explorer with artists, designers, and creative-technology users, and should separately validate AI-generated captions/summaries for accuracy and neutrality.
+These findings are descriptive design evidence, not a claim that the redesign outperformed a baseline. They motivate stronger image-level provenance, an **Earlier → Later** direction cue, an **Observed / Unknown** pair for upscale, and a visually subordinate AI interpretation. The final multi-thread Explorer has not yet been user-tested. A future study should use matched tasks, a larger art/design/creative-technology sample, and separate checks of AI-caption accuracy and neutrality.
 
 ## Relationship to prior work
 
@@ -104,7 +105,9 @@ data/analysis.json         deterministic multi-thread browser dataset
 data/prototype.json        original thread-2231 case and regenerated-image metadata
 scripts/build_analysis.py  reproducible analysis-data builder
 assets/images/             labeled regenerated demonstrations
+assets/screenshots/        baseline, redesign, and final Explorer screenshots
 docs/                      submitted paper, appendices, generation record, evaluation record
+docs/PS1-sc972-Sitong-Chang-Final-Updated.docx  editable final manuscript
 ```
 
 ## Run locally

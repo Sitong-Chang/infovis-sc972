@@ -157,24 +157,24 @@ function renderInspector(item) {
   const afterDemo = prototypeNode(item.to);
   $("#selected-thread-badge").textContent = `Thread ${item.thread_id}`;
   const images = beforeDemo && afterDemo ? `<div class="image-pair">
-    <figure class="image-card"><img src="${escapeHtml(beforeDemo.image)}" alt="${escapeHtml(beforeDemo.alt)}"><figcaption>Before · regenerated demonstration</figcaption></figure>
-    <figure class="image-card"><img src="${escapeHtml(afterDemo.image)}" alt="${escapeHtml(afterDemo.alt)}"><figcaption>After · regenerated demonstration</figcaption></figure>
+    <figure class="image-card"><img src="${escapeHtml(beforeDemo.image)}" alt="${escapeHtml(beforeDemo.alt)}"><figcaption><strong>Regenerated demonstration</strong>Before</figcaption></figure>
+    <figure class="image-card"><img src="${escapeHtml(afterDemo.image)}" alt="${escapeHtml(afterDemo.alt)}"><figcaption><strong>Regenerated demonstration</strong>After</figcaption></figure>
   </div><p class="claim-note">These are newly generated demonstrations, not the unavailable historical Midjourney outputs. They cannot isolate causal effects.</p>` : `<div class="empty-evidence">No regenerated demonstration was created for this sampled transition. The interface does not substitute the expired source image with an unlabeled proxy.</div>`;
   const captions = (record) => escapeHtml(record.captions.filter(Boolean).join(" · "));
   $("#inspector-content").innerHTML = `
-    <div class="transition-heading"><strong>${escapeHtml(item.edit_type)}</strong><span>${new Date(item.before.timestamp).toLocaleString()} → ${new Date(item.after.timestamp).toLocaleString()}</span></div>
+    <div class="transition-heading"><strong>${escapeHtml(item.edit_type)} · Earlier → Later</strong><span>${new Date(item.before.timestamp).toLocaleString()} → ${new Date(item.after.timestamp).toLocaleString()}</span></div>
     <section class="evidence-block recorded-layer"><div class="evidence-title"><h3>Exact prompt records</h3><span class="badge source-badge">Recorded</span></div><div class="prompt-pair">
       <div class="prompt-card"><strong>Before · ${escapeHtml(item.from)}</strong>${escapeHtml(item.before.prompt)}<br><small>${escapeHtml(item.before.args || "No parameters")}</small></div>
       <div class="prompt-card"><strong>After · ${escapeHtml(item.to)}</strong>${escapeHtml(item.after.prompt)}<br><small>${escapeHtml(item.after.args || "No parameters")}</small></div>
-    </div><p class="claim-note">Later output action: ${item.later_upscaled ? "upscaled" : "not upscaled"}. This is a behavioral trace, not a quality or preference score.</p></section>
+    </div><div class="action-pair"><p><strong>Observed</strong>${item.later_upscaled ? "Upscale action recorded" : "No upscale action recorded"}</p><p><strong>Unknown</strong>Reason, preference, and image quality</p></div></section>
     <section class="evidence-block derived-layer"><div class="evidence-title"><h3>Token change + measures</h3><span class="badge derived-badge">Derived</span></div>
       <div class="diff-row">${tagList(item.removed,"removed","No removed terms")}${tagList(item.added,"added","No added terms")}</div>
       <div class="measure-grid"><div class="measure"><strong>${item.prompt_change.toFixed(2)}</strong><span>prompt-token Jaccard distance</span></div><div class="measure"><strong>${item.caption_change.toFixed(2)}</strong><span>caption-token Jaccard distance</span></div></div>
     </section>
-    <section class="evidence-block ai-layer"><div class="evidence-title"><h3>Dataset image captions</h3><span class="badge interpretation-badge">BLIP-2 · AI-derived</span></div><div class="caption-pair">
+    <section class="evidence-block generated-layer"><div class="evidence-title"><h3>Regenerated comparison</h3><span class="badge generated-badge">Demonstration</span></div>${images}</section>
+    <section class="evidence-block ai-layer"><div class="evidence-title"><h3>Model interpretation to verify</h3><span class="badge interpretation-badge">BLIP-2 · AI-derived</span></div><div class="caption-pair">
       <div class="caption-card"><strong>Before captions</strong>${captions(item.before)}</div><div class="caption-card"><strong>After captions</strong>${captions(item.after)}</div>
-    </div><p class="claim-note">These captions describe model-observed content imperfectly. The caption-change score is not ground truth.</p></section>
-    <section class="evidence-block generated-layer"><div class="evidence-title"><h3>Regenerated comparison</h3><span class="badge generated-badge">Demonstration</span></div>${images}</section>`;
+    </div><p class="claim-note">These captions are model-derived interpretations, not recorded visual truth. Verify them against available evidence.</p></section>`;
   applyLayerVisibility();
 }
 
@@ -197,7 +197,7 @@ function renderBaseline() {
     rows.push(`<article class="baseline-node"><img src="${escapeHtml(node.image)}" alt="${escapeHtml(node.alt)}"><div><p>${escapeHtml(node.label)} · ${escapeHtml(node.prompt)}</p><small>${escapeHtml(node.args)}</small></div></article>`);
     if (index < state.prototype.nodes.length - 1) {
       const comparison = comparisons.get(node.id);
-      rows.push(`<div class="baseline-edge"><i aria-hidden="true"></i><button data-id="t2231-${index+1}">Inspect ${escapeHtml(comparison.edit)}</button></div>`);
+      rows.push(`<div class="baseline-edge"><i aria-hidden="true"></i><button data-id="t2231-${index+1}">Earlier → Later · Inspect ${escapeHtml(comparison.edit)}</button></div>`);
     }
   });
   $("#baseline-graph").innerHTML = rows.join("");
@@ -205,15 +205,20 @@ function renderBaseline() {
 }
 
 function renderEvaluation() {
-  const metrics = [
-    { label: "Prompt-edit identification", baseline: 50, redesign: 100, b: "2/4", r: "4/4" },
-    { label: "Provenance distinction", baseline: 0, redesign: 100, b: "0/4", r: "4/4" },
-    { label: "Median confidence", baseline: 70, redesign: 90, b: "3.5/5", r: "4.5/5" },
-    { label: "Median completion time", baseline: 100, redesign: 76, b: "87.5s", r: "66.5s" }
+  const participants = [
+    { id: "P1", time: "68 s", confidence: "4/5", issue: "Regenerated image read as historical output", cue: "Generated demonstration label", response: "Place stronger provenance labels directly beside images." },
+    { id: "P2", time: "91 s", confidence: "3/5", issue: "Graph edge read as image similarity", cue: "Timestamps and prompt changes", response: "Add an explicit Earlier → Later direction cue." },
+    { id: "P3", time: "74 s", confidence: "4/5", issue: "Upscale action read as user preference", cue: "Claim-limit warning", response: "Pair Observed: upscale with Unknown: reason / preference." },
+    { id: "P4", time: "112 s", confidence: "3/5", issue: "AI interpretation read as a causal answer", cue: "Model-derived warning", response: "Place AI interpretation after recorded evidence and reduce its visual authority." }
   ];
-  $("#evaluation-chart").innerHTML = metrics.map((item) => `<article class="evaluation-card"><h3>${item.label}</h3>
-    <div class="eval-row"><span>Baseline</span><div class="eval-track"><div class="eval-fill" style="width:${item.baseline}%"></div></div><strong>${item.b}</strong></div>
-    <div class="eval-row redesign"><span>Redesign</span><div class="eval-track"><div class="eval-fill" style="width:${item.redesign}%"></div></div><strong>${item.r}</strong></div></article>`).join("");
+  $("#evaluation-chart").innerHTML = participants.map((item) => `<details class="evaluation-card">
+    <summary><span>${item.id}</span><strong>${item.time}</strong><small>confidence ${item.confidence}</small></summary>
+    <dl>
+      <div><dt>Initial ambiguity</dt><dd>${item.issue}</dd></div>
+      <div><dt>Correction cue</dt><dd>${item.cue}</dd></div>
+      <div><dt>Design response</dt><dd>${item.response}</dd></div>
+    </dl>
+  </details>`).join("");
 }
 
 function renderMethod() {

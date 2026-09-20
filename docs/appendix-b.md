@@ -172,7 +172,7 @@ This failure is treated as part of the data condition rather than hidden.
 
 ## B6. Evaluation Verification
 
-A formative evaluation was completed with four anonymized DKU student proxies.
+A formative evaluation was completed with four anonymized DKU student participants using the first one-thread provenance redesign.
 
 Participant records are stored in:
 
@@ -182,24 +182,17 @@ The student supplied the participant observations and timings. AI assistance was
 
 ### B6.1 Real participant results
 
-| Measure                                  | Baseline | Redesign |
-| ---------------------------------------- | -------: | -------: |
-| Fully correct prompt-edit identification |      2/4 |      4/4 |
-| Fully correct provenance distinction     |      0/4 |      4/4 |
-| Median completion time                   |   87.5 s |   66.5 s |
-| Median confidence                        |    3.5/5 |    4.5/5 |
-| Correct upscale interpretation           |        — |      4/4 |
+| Participant | Time | Confidence | Initial ambiguity | Correction cue |
+|---|---:|---:|---|---|
+| P1 | 68 s | 4/5 | Regenerated image read as historical output | Generated demonstration label |
+| P2 | 91 s | 3/5 | Graph edge read as image similarity | Timestamps and prompt changes |
+| P3 | 74 s | 4/5 | Upscale read as preference | Claim-limit warning |
+| P4 | 112 s | 3/5 | AI interpretation read as a causal answer | Model-derived warning |
+| **Median** | **82.5 s** | **3.5/5** | **4/4 began with an ambiguity** | **4/4 revised after a cue** |
 
 Participant observations were retained even when they complicated the redesign claim.
 
-For example:
-
-* P1 noticed unrelated feather movement;
-* P2 emphasized composition changes not explained by one removed word;
-* P3 observed broader layout changes;
-* P4 requested stronger provenance positioning.
-
-These observations support retaining generation variability as a visible limitation.
+For example, P1 exposed delayed provenance recognition, P2 exposed ambiguous edge meaning, P3 exposed preference inference from upscale, and P4 exposed the rhetorical authority of AI interpretation. These observations support clearer image-level provenance, direction cues, observed/unknown pairings, and a lighter hierarchy for model-derived explanations.
 
 ### B6.2 Evaluation claim boundary
 
@@ -208,10 +201,11 @@ The results are not presented as a controlled causal experiment.
 Reasons include:
 
 * only four participants;
-* student proxies rather than representative professional creators;
-* different edit pairs across some Baseline and Redesign tasks;
+* DKU student participants rather than representative professional creators;
+* heterogeneous participant tasks and no controlled baseline;
 * a short evaluation session;
-* and uncontrolled variation in regenerated images.
+* uncontrolled variation in regenerated images;
+* and no user evaluation of the final multi-thread Explorer.
 
 AI-assisted drafting therefore uses phrases such as:
 
@@ -311,7 +305,7 @@ Broader redistribution or reuse should continue to respect the conditions of the
 
 ### Evaluation generalizability
 
-Four student proxies cannot represent professional artists, broader creator communities, or long-term use.
+Four student participants cannot represent professional artists, broader creator communities, or long-term use.
 
 ### Final layout
 

@@ -85,7 +85,7 @@ PrompTHis provides the main visualization precedent. Midjourney Threads provides
 
 **Prospective community:** DKU students and novice digital creators who use generative AI for coursework, design, or creative experimentation.
 
-The initial need was treated as a hypothesis rather than an established community claim. A formative evaluation with four DKU student proxies later provided preliminary evidence that provenance distinction was difficult in the Baseline interface: none of the four fully distinguished source, regenerated, and interpreted material. All four correctly distinguished these layers in the Redesign condition.
+The initial need was treated as a hypothesis rather than an established community claim. A formative evaluation with four DKU student participants later showed that provenance, graph-edge meaning, behavioral traces, and model-derived explanations could each be misread. The sessions motivate design revisions but do not establish comparative effectiveness.
 
 This does not establish the needs of a broader creator community.
 
@@ -273,113 +273,30 @@ Because several commits use generic upload messages, milestone interpretation re
 
 The complete evaluation protocol and anonymized participant records are stored in `docs/evaluation-record.md`.
 
-Four DKU student proxies completed one Baseline task and one Redesign task using a counterbalanced order:
-
-* P1 and P3: Baseline → Redesign
-* P2 and P4: Redesign → Baseline
-
-The evaluation recorded:
-
-* prompt-edit identification;
-* explanation of visible image changes;
-* completion time;
-* provenance classification;
-* interpretation of the historical upscale label;
-* confidence on a 1–5 scale;
-* participant comments and suggested interface changes.
-
-The study was formative rather than a controlled experiment. Participants did not always inspect the same edit pair across both interface conditions, so aggregate values are treated as descriptive evidence rather than causal estimates.
+Four DKU student participants completed related inspection tasks using the first one-thread provenance redesign. The evaluation recorded completion time, confidence, behavior, comments, and design implications. Tasks differed by participant, there was no controlled baseline, and the final multi-thread Explorer was not tested.
 
 ### A5.1 Aggregate results
 
-| Measure                                  | Baseline | Redesign |
-| ---------------------------------------- | -------: | -------: |
-| Fully correct prompt-edit identification |      2/4 |      4/4 |
-| Fully correct provenance distinction     |      0/4 |      4/4 |
-| Median completion time                   |   87.5 s |   66.5 s |
-| Median confidence                        |    3.5/5 |    4.5/5 |
-| Correct upscale interpretation           |        — |      4/4 |
+| Measure | Result and interpretation |
+|---|---|
+| Task completion and time | 4/4; 68, 91, 74, and 112 s; median 82.5 s |
+| Confidence | 4, 3, 4, and 3; median 3.5/5 |
+| Initial ambiguity | 4/4, with a different issue for each participant |
+| Correction after cue | 4/4 revised after a label, warning, timestamp, or prompt difference |
+| Scope | First redesign only; no controlled baseline and no final-Explorer test |
 
-### A5.2 Prompt-edit identification
+### A5.2 Participant findings
 
-In Baseline:
+| Participant | Evidence-based finding | Revision direction |
+|---|---|---|
+| P1 | Correctly read the prompt diff but initially treated a regenerated image as historical output | Place stronger provenance directly beside images |
+| P2 | Understood nodes but initially read graph edges as image similarity | Add **Earlier → Later** and name the revision sequence |
+| P3 | Distinguished evidence layers but initially inferred preference from upscale | Pair **Observed: upscale** with **Unknown: reason / preference** |
+| P4 | Initially treated the concise AI interpretation as a causal answer | Place AI interpretation after recorded evidence and reduce its visual authority |
 
-* P1 correctly noticed the addition of “HD” but initially overlooked the removal of “surreal.”
-* P3 noticed “forrest” but initially missed the removal of “front view.”
-* P2 and P4 identified the full edit.
+### A5.3 Evaluation limitations
 
-In Redesign, all four participants identified the complete prompt edit.
-
-This suggests that the explicit word-level diff may help users notice removed terms that are easier to overlook when comparing full prompts.
-
-### A5.3 Provenance comprehension
-
-Provenance misunderstanding was more common in Baseline.
-
-* P1 initially assumed that the regenerated images were the original dataset images.
-* P3 initially assumed that all visible content came directly from the selected dataset.
-* P2 completed the comparison but said the relationship between the dataset and images was unclear.
-* P4 understood that the interface was reconstructed but wanted regenerated-image status closer to the thumbnails.
-
-In Redesign, all four participants correctly distinguished recorded source information from regenerated demonstrations and AI interpretation.
-
-This was the clearest pattern in the small formative evaluation.
-
-### A5.4 Upscale interpretation
-
-All four participants correctly rejected the claim that upscale represented an objective preference or image-quality score.
-
-Participant descriptions included:
-
-* “a useful behavioral signal, but not a direct rating”;
-* “an action, not a clear statement saying ‘I prefer this’”;
-* and evidence that the user “did something with that result.”
-
-These responses support the decision to keep upscale as contextual text rather than encoding it as rank, quality, or node importance.
-
-### A5.5 Generation variability
-
-Participants repeatedly noticed image differences that could not safely be attributed to one prompt edit.
-
-Examples included:
-
-* feather position;
-* composition changes;
-* camera angle;
-* layout differences;
-* and broader scene changes.
-
-This supports keeping the generation-variability warning visible and avoiding causal wording such as:
-
-> “This word caused this image change.”
-
-A safer claim is that a recorded revision corresponds with visible differences in the regenerated comparison.
-
-### A5.6 Participant-derived revision directions
-
-Evaluation feedback motivated four concrete refinements:
-
-1. Make the **“regenerated demonstration”** label more visually prominent.
-2. Move provenance information closer to image thumbnails.
-3. Shorten some explanatory paragraphs into more scannable text.
-4. Keep the provenance legend and generation-variability warning persistently visible.
-
-These participant-derived suggestions are distinguished from earlier designer-led walkthrough revisions.
-
-### A5.7 Evaluation limitations
-
-The evaluation does not establish general interface effectiveness.
-
-Limitations include:
-
-* only four DKU student proxies;
-* no professional or art/design participants;
-* prompt-edit pairs were not perfectly matched across all conditions;
-* a short evaluation session;
-* regenerated images contain uncontrolled visual variability;
-* and the selected dataset sample contains only one three-step thread.
-
-The results therefore support iterative design decisions rather than population-level conclusions.
+The results support iterative design decisions rather than claims of effectiveness. Limitations include a four-person convenience sample, heterogeneous tasks, no controlled baseline, a short session, uncontrolled variation in regenerated demonstrations, and no user test of the final multi-thread Explorer. The next study should use matched tasks, a larger art/design/creative-technology sample, and separate checks of BLIP-2 caption accuracy and neutrality.
 
 ---
 
