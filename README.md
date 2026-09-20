@@ -1,195 +1,131 @@
-# Prompt Influence Inspector
+# Prompt Influence Explorer
 
-An evidence-aware extension of a PrompTHis-inspired Image Variant Graph for INFOSCI 301. This static research artifact helps novice creators inspect a real prompt-revision sequence while keeping recorded data, regenerated demonstrations, historical user action, unavailable evidence, and AI interpretation visibly separate.
+An evidence-aware visual analysis of iterative prompt editing for INFOSCI 301. The redesign extends the earlier single-thread **Prompt Influence Inspector** into a coordinated exploration system:
 
-> Status: **working evaluated prototype**. The prompt records and upscale labels come from a public dataset. The displayed images are newly generated demonstrations because the recorded historical image URLs are no longer available.
+> overview → filter → select → inspect exact evidence
 
-## Research Question
+The project asks:
 
-**How can provenance-labeled multimodal comparison help novice creators inspect real prompt revisions without confusing recorded interaction data, regenerated visual evidence, and AI interpretation?**
+**How can interactive visualization help creators explore patterns between prompt revisions and image-description changes while preserving the provenance of recorded, derived, regenerated, and AI-interpreted evidence?**
 
-## Project Links
+## Live project
 
+- Website: https://infovis-sc972.vercel.app/
 - Repository: https://github.com/dku-infosci301-Autumn2026/infovis-sc972
-- Live website: https://infovis-sc972.vercel.app/
-- Main condensed paper: [`docs/paper-main-condensed.md`](docs/paper-main-condensed.md)
-- Appendix A — technical evidence, governance, continuity, and evaluation: [`docs/appendix-a.md`](docs/appendix-a.md)
-- Appendix B — AI assistance and human verification: [`docs/appendix-b.md`](docs/appendix-b.md)
-- Evaluation record: [`docs/evaluation-record.md`](docs/evaluation-record.md)
-- Image-generation record: [`docs/image-generation-record.md`](docs/image-generation-record.md)
-- Paper figures: [`assets/screenshots/`](assets/screenshots/)
-- Field evidence: [`assets/field/`](assets/field/)
 
-## Selected IEEE VIS Paper
+## Why the visualizations are meaningful
 
-The project builds on **PrompTHis: Visualizing the Process and Influence of Prompt Editing during Text-to-Image Creation**.
+Every view is tied to an analytical question rather than added for decoration.
 
-PrompTHis already supports exploration of prompt-editing history and influence. This redesign therefore does not claim to invent prompt-image comparison or influence analysis. Instead, it adds a focused provenance-aware comparison layer for a different analytical question.
+| View | Question it answers | Interaction |
+|---|---|---|
+| Edit-direction bars | How are prompts revised in the current selection? | Click a bar to filter all views |
+| Prompt-change vs caption-change scatterplot | Do larger text edits align with larger shifts in BLIP-2 descriptions? | Hover for values; click a point to inspect it |
+| Thread landscape | How do revision length, order, and edit direction vary across threads? | Sort and select any transition |
+| Semantic edit matrix | Which prompt dimensions changed within the selected thread? | Select a revision column/cell |
+| Revision inspector | What exactly changed, and what is the provenance of each claim? | Toggle derived, AI-caption, and regenerated layers |
+| Baseline case | What could the original linear single-thread view support—and not support? | Switch between baseline and explorer |
 
-- Paper: https://arxiv.org/abs/2403.09615
-- Open-source repository: https://github.com/Vis4Sense/prompthis
+The views are coordinated: search, edit type, upscale action, and minimum-change filters update the summaries, bars, scatterplot, and thread landscape. Selecting a mark updates the semantic matrix and evidence inspector.
 
-The Baseline in this repository is an attributed, simplified reconstruction rather than a full replication of the original system.
+## Data
 
-## Complementary Data
-
-The additional data source is **Midjourney Threads**, released with *Human Learning by Model Feedback: The Dynamics of Iterative Prompting with Midjourney*.
+The source is **Midjourney Threads**, released with *Human Learning by Model Feedback: The Dynamics of Iterative Prompting with Midjourney*.
 
 - Paper: https://aclanthology.org/2023.emnlp-main.253/
 - Dataset repository: https://github.com/shachardon/Mid-Journey-to-alignment
-- Source file: `data/threads_0.csv`
-- Selected thread: `thread_id = 2231`
-- Selected records:
-  - `1071138984736084058`
-  - `1071139569849880656`
-  - `1071140082511253515`
+- Source slice used for derivation: `threads_0.csv`
+- Source slice size: 20,000 records in 11,914 threads
 
-The three consecutive records contain two compact revisions:
+### Transparent analysis filter
 
-1. add “HD” and remove “surreal”;
-2. add “forrest” and remove “front view.”
+The build script:
 
-The misspelling “forrest” is preserved because it appears in the recorded source prompt.
+1. groups records by `thread_id` and orders them by timestamp;
+2. keeps English threads with at least two records;
+3. compares consecutive prompt-token sets;
+4. retains transitions with Jaccard similarity of at least `0.35`, reducing obviously unrelated consecutive records;
+5. computes added/removed tokens, edit direction, prompt-token distance, BLIP-2-caption distance, and a disclosed keyword-based semantic focus;
+6. writes a deterministic browser sample of 59 evenly spaced qualifying threads plus thread 2231.
 
-Pick-a-Pic was considered but rejected for this task because its preference labels compare image alternatives associated with the same prompt rather than directly measuring prompt-edit transitions.
+Across the full 20,000-record source slice, the filter yields **7,307 qualifying transitions in 3,116 threads**. The browser-ready sample contains **60 threads and 104 transitions**. Aggregate counts in `analysis.json` are calculated across all qualifying transitions; interactive marks use the disclosed sample so the static page remains responsive.
 
-## Redesign Contribution
+Rebuild the derived data after downloading the cited source repository beside this project:
 
-Redesign mode adds a focused **Influence Inspector** with four coordinated layers:
+```bash
+python scripts/build_analysis.py ../Mid-Journey-to-alignment/data/threads_0.csv
+```
 
-1. recorded before/after prompts and a derived word-level diff;
-2. regenerated comparison images plus a missing-source warning;
-3. the later record’s historical upscale action;
-4. an AI-generated, manually checked visual summary.
-
-A persistent provenance legend distinguishes:
-
-- recorded source evidence;
-- regenerated demonstration material;
-- AI interpretation;
-- unavailable historical evidence.
-
-The interface deliberately avoids converting upscale into a preference score or quality measure.
-
-## Provenance and Claim Boundaries
+## Evidence provenance and claim boundaries
 
 | Layer | Status | Claim boundary |
 |---|---|---|
-| Prompt, parameters, IDs, timestamps | Recorded source data | Describes only the selected historical thread |
-| Added/removed terms | Derived data | Deterministic comparison of recorded prompt text |
-| Displayed images | Regenerated demonstration | Not historical Midjourney outputs; generation variability remains |
-| Upscale label | Recorded historical action | Behavioral trace, not explicit preference |
-| Tags and summary | AI interpretation | May be incomplete or wrong |
-| Original images | Unavailable evidence | Recorded image URLs returned HTTP 404 on September 13, 2026 |
+| Prompt text, IDs, timestamps, parameters, upscale label | Recorded source data | Describes dataset records only |
+| Added/removed tokens, Jaccard distances, edit direction | Deterministic derived data | Depends on tokenization and the disclosed filter |
+| Semantic edit focus | Keyword-heuristic derived data | Not manually coded ground truth |
+| BLIP-2 captions | AI-derived data included in the dataset | Imperfect model interpretations, not direct visual truth |
+| Caption-change distance | Derived from AI captions | Measures caption-token difference, not image distance |
+| Three displayed images for thread 2231 | Regenerated demonstration | Not the historical Midjourney outputs; cannot isolate causality |
+| Historical image files | Unavailable evidence | Recorded Discord CDN URLs returned HTTP 404 when checked on 2026-09-13 |
+| Upscale label | Recorded historical action | Behavioral trace, not explicit preference or objective quality |
 | Creator intention | Unavailable | Not inferred |
-| Explicit preference | Unavailable | Not inferred from upscale |
 
-## Field Evidence and Continuity
+The scatterplot therefore asks whether two **measured descriptions change together**. It does not claim that a prompt edit caused an image change.
 
-The project also carries forward design lessons from earlier INFOSCI 301 work.
+## Evaluation evidence
 
-Week 1 explored transparency in recommendation ranking through a Zhouzhuang travel-recommendation prototype.
+The page visualizes the first redesign's formative evaluation with four anonymized DKU student proxies:
 
-Week 2 developed **Energy Lens**, emphasizing that different analytical questions may require different visual idioms and that derived values should remain distinguishable from source data.
-
-Two photographs taken at the Shanghai Science and Technology Museum on September 4, 2026 are stored in:
-
-`assets/field/`
-
-They are used as visual-design evidence rather than evidence about visitor comprehension.
-
-## Emerging Technology
-
-The artifact uses prompt-conditioned image generation and multimodal comparison.
-
-For reproducibility, generated images and summaries are stored locally rather than generated through a live API at runtime.
-
-The exact generation record is documented in:
-
-[`docs/image-generation-record.md`](docs/image-generation-record.md)
-
-## Working Interaction
-
-1. Switch between **Baseline** and **Redesign**.
-2. Select either prompt-edit edge in the Image Variant Graph.
-3. Compare exact before/after prompts and regenerated images.
-4. In Redesign, inspect provenance labels, historical action, missing-source status, and AI interpretation.
-5. Read the generation-variability warning before drawing conclusions.
-
-## Evaluation
-
-A formative evaluation was conducted with four anonymized DKU student proxies.
-
-Participants completed one Baseline task and one Redesign task in counterbalanced order.
-
-### Descriptive results
-
-| Measure | Baseline | Redesign |
+| Measure | Baseline | First redesign |
 |---|---:|---:|
 | Fully correct prompt-edit identification | 2/4 | 4/4 |
 | Fully correct provenance distinction | 0/4 | 4/4 |
 | Median completion time | 87.5 s | 66.5 s |
 | Median confidence | 3.5/5 | 4.5/5 |
-| Correct upscale interpretation | — | 4/4 |
 
-The clearest formative pattern concerned provenance comprehension: none of the four participants fully distinguished source, regenerated, and interpreted material in Baseline, while all four did so in Redesign.
+These are descriptive, preliminary results—not causal or population-level evidence. A future study should test the new multi-thread explorer with artists, designers, and creative-technology users, and should separately validate AI-generated captions/summaries for accuracy and neutrality.
 
-The explicit word diff also appeared to help participants notice removed terms.
+## Relationship to prior work
 
-All four participants correctly rejected the interpretation that upscale represented objective quality or explicit preference.
+The project builds on **PrompTHis: Visualizing the Process and Influence of Prompt Editing during Text-to-Image Creation**.
 
-However, participants continued to notice composition and layout differences caused by regeneration variability. The project therefore keeps its causal claim deliberately limited.
+- Paper: https://arxiv.org/abs/2403.09615
+- Repository: https://github.com/Vis4Sense/prompthis
 
-These results are formative rather than causal evidence because:
+The Baseline is an attributed simplified reconstruction, not a full replication. The redesign does not claim to invent prompt-history visualization. Its contribution is a focused combination of multi-thread pattern exploration, coordinated selection, and explicit provenance boundaries.
 
-- the sample contains only four student proxies;
-- tasks were not perfectly matched across conditions;
-- and independently regenerated images contain uncontrolled variation.
+## Files
 
-Full records are in:
+```text
+index.html                 page structure and accessibility labels
+style.css                  responsive layout and visual encodings
+script.js                  filters, linked views, SVG charts, and evidence toggles
+data/analysis.json         deterministic multi-thread browser dataset
+data/prototype.json        original thread-2231 case and regenerated-image metadata
+scripts/build_analysis.py  reproducible analysis-data builder
+assets/images/             labeled regenerated demonstrations
+docs/                      submitted paper, appendices, generation record, evaluation record
+```
 
-[`docs/evaluation-record.md`](docs/evaluation-record.md)
+## Run locally
 
-## Limitations
-
-- The Baseline is a simplified attributed reconstruction rather than a full PrompTHis replication.
-- Historical Midjourney images are unavailable.
-- Regenerated demonstrations cannot isolate causal prompt effects.
-- Creator intention is unavailable.
-- Upscale does not establish explicit preference or objective quality.
-- AI summaries may overlook or overstate visual differences.
-- The sample includes only one three-step thread.
-- Four student proxies cannot represent professional artists or broader creator communities.
-
-## AI Assistance and Human Verification
-
-AI assistance was used to:
-
-- scaffold code;
-- generate demonstration images;
-- draft comparison summaries;
-- help organize documentation;
-- and assist with paper and evaluation structure.
-
-Human verification included:
-
-- checking selected dataset rows;
-- preserving source prompt spelling;
-- inspecting generated images;
-- reviewing AI summaries;
-- checking provenance labels;
-- testing the deployed interaction;
-- and supplying and verifying the participant evaluation records.
-
-AI-generated content remains labeled as generated or interpreted material.
-
-Full disclosure appears in:
-
-[`docs/appendix-b.md`](docs/appendix-b.md)
-
-## Run Locally
-
-Because the page loads JSON using `fetch`, serve the repository through a local HTTP server:
+The page loads JSON with `fetch`, so use a local HTTP server:
 
 ```bash
 python -m http.server 8000
+```
+
+Then open `http://localhost:8000`.
+
+## Accessibility and implementation
+
+- vanilla HTML, CSS, JavaScript, and inline SVG; no runtime API or framework dependency;
+- keyboard-operable chart marks and controls;
+- persistent textual explanations of encodings and claim limits;
+- responsive one-column layout on narrow screens;
+- visible focus states, semantic headings, live status updates, and alt text;
+- locally stored regenerated demonstrations for reproducibility.
+
+## AI assistance and human verification
+
+AI assistance supported code scaffolding, image generation, comparison drafting, and documentation organization. Human verification included checking dataset rows, preserving source spelling, reviewing provenance labels, testing coordinated filters and selection behavior, reviewing generated images and AI summaries, and maintaining explicit claim limits. AI-generated or AI-derived content remains visibly labeled.
